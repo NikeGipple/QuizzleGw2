@@ -2,9 +2,11 @@ import "./styles.sass";
 import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 export const TextAnswers = ({answers, onChange}) => {
     const [newAnswer, setNewAnswer] = useState("");
+    const { t } = useTranslation();
 
     const addAnswer = () => {
         if (newAnswer.trim() && answers.length < 10) {
@@ -32,10 +34,10 @@ export const TextAnswers = ({answers, onChange}) => {
     return (
         <div className="text-answers-container">
             <div className="text-answers-header">
-                <h3>Richtige Antworten</h3>
-                <span className="text-answers-hint">Groß-/Kleinschreibung wird ignoriert</span>
+                <h3>{t("quizCreator.textAnswers.title")}</h3>
+                <span className="text-answers-hint">{t("quizCreator.textAnswers.hint")}</span>
             </div>
-            
+
             <div className="text-answers-list">
                 {answers.map((answer, index) => (
                     <div key={index} className="text-answer-item">
@@ -44,7 +46,7 @@ export const TextAnswers = ({answers, onChange}) => {
                             type="text"
                             value={answer.content}
                             onChange={(e) => updateAnswer(index, e.target.value)}
-                            placeholder={`Antwort ${index + 1}`}
+                            placeholder={t("quizCreator.answer.placeholder", { n: index + 1 })}
                             className="text-answer-input"
                             maxLength={150}
                         />
@@ -52,6 +54,7 @@ export const TextAnswers = ({answers, onChange}) => {
                             onClick={() => removeAnswer(index)}
                             className="remove-answer-btn"
                             type="button"
+                            aria-label={t("quizCreator.textAnswers.remove")}
                         >
                             <FontAwesomeIcon icon={faTrash} />
                         </button>
@@ -65,7 +68,7 @@ export const TextAnswers = ({answers, onChange}) => {
                     type="text"
                     value={newAnswer}
                     onChange={(e) => setNewAnswer(e.target.value)}
-                    placeholder="Neue Antwort hinzufügen..."
+                    placeholder={t("quizCreator.textAnswers.addPlaceholder")}
                     className="new-answer-input"
                     maxLength={150}
                     onKeyPress={(e) => {
@@ -80,6 +83,7 @@ export const TextAnswers = ({answers, onChange}) => {
                     className="add-answer-btn"
                     type="button"
                     disabled={!newAnswer.trim() || answers.length >= 10}
+                    aria-label={t("quizCreator.textAnswers.add")}
                 >
                     <FontAwesomeIcon icon={faPlus} />
                 </button>
@@ -87,7 +91,7 @@ export const TextAnswers = ({answers, onChange}) => {
 
             {answers.length === 0 && (
                 <div className="no-answers-hint">
-                    Fügen Sie mindestens eine akzeptierte Antwort hinzu
+                    {t("quizCreator.textAnswers.emptyHint")}
                 </div>
             )}
         </div>

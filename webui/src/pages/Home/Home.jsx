@@ -13,6 +13,7 @@ import {QuizContext} from "@/common/contexts/Quiz";
 import QrScanner from "qr-scanner";
 import toast from "react-hot-toast";
 import {jsonRequest} from "@/common/utils/RequestUtil.js";
+import { useTranslation } from "react-i18next";
 
 export const Home = () => {
     const {titleImg, imprint, privacy, version} = useContext(BrandingContext);
@@ -22,6 +23,8 @@ export const Home = () => {
     const [scannerShown, setScannerShown] = useState(false);
     const [isPracticeMode, setIsPracticeMode] = useState(false);
     const [showResultsDialog, setShowResultsDialog] = useState(false);
+
+    const { t } = useTranslation();
 
     const scanner = useRef();
     const videoEl = useRef(null);
@@ -65,6 +68,7 @@ export const Home = () => {
 
         setScannerShown(false);
     }
+
     const [errorClass, setErrorClass] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -79,7 +83,7 @@ export const Home = () => {
                         setIsPracticeMode(true);
                     } else {
                         setCode(null);
-                        toast.error(data.message || "Übungsquiz nicht gefunden");
+                        toast.error(data.message || t("home.errors.practiceNotFound"));
                         setErrorClass("room-error");
                         setTimeout(() => setErrorClass(""), 300);
                     }
@@ -88,7 +92,7 @@ export const Home = () => {
                     setLoading(false);
                     console.error('Error checking practice quiz:', error);
                     setCode(null);
-                    toast.error("Fehler beim Überprüfen des Übungsquiz");
+                    toast.error(t("home.errors.checkPracticeFailed"));
                     setErrorClass("room-error");
                     setTimeout(() => setErrorClass(""), 300);
                 });
@@ -103,20 +107,20 @@ export const Home = () => {
                         setIsPracticeMode(false);
                     } else {
                         setCode(null);
-                        toast.error(response?.error || "Raum nicht gefunden");
+                        toast.error(response?.error || t("home.errors.roomNotFound"));
                         setErrorClass("room-error");
                         setTimeout(() => setErrorClass(""), 300);
                     }
                 });
             }).catch(() => {
                 setCode(null);
-                toast.error("Verbindungsfehler");
+                toast.error(t("home.errors.connectionError"));
                 setErrorClass("room-error");
                 setTimeout(() => setErrorClass(""), 300);
             });
         } else {
             setCode(null);
-            toast.error("Ungültiger Code");
+            toast.error(t("home.errors.invalidCode"));
             setErrorClass("room-error");
             setTimeout(() => setErrorClass(""), 300);
         }
@@ -148,7 +152,7 @@ export const Home = () => {
                     })
                     .catch((error) => {
                         setLoading(false);
-                        toast.error(error.message || "Fehler beim Beitreten");
+                        toast.error(error.message || t("home.errors.joinFailed"));
                         reject(error);
                     });
             }
@@ -210,8 +214,8 @@ export const Home = () => {
     return (
         <div className="home-page">
             <motion.div className="legal-area" initial={{opacity: 0, y: 50}} animate={{opacity: 1, y: 0}}>
-                <a href={imprint} target="_blank" rel="noreferrer">Impressum</a>
-                <a href={privacy} target="_blank" rel="noreferrer">Datenschutz</a>
+                <a href={imprint} target="_blank" rel="noreferrer">{t("home.legal.imprint")}</a>
+                <a href={privacy} target="_blank" rel="noreferrer">{t("home.legal.privacy")}</a>
                 {version && <span className="version">v{version}</span>}
             </motion.div>
 
@@ -223,20 +227,28 @@ export const Home = () => {
 
             <motion.img src={titleImg} alt="logo" initial={{opacity: 0, y: -50}} animate={{opacity: 1, y: 0}}/>
 
-            <motion.div initial={{opacity: 0, y: 50}} animate={{opacity: 1, y: 0}} transition={{delay: 0.5}}
-                        className="home-content">
+            <motion.div
+                initial={{opacity: 0, y: 50}}
+                animate={{opacity: 1, y: 0}}
+                transition={{delay: 0.5}}
+                className="home-content"
+            >
                 <div className="join-area">
-                    {code === null ? <CodeInput joinGame={checkRoom} errorClass={errorClass} scanQr={scanQr}/>
-                        : <CharacterSelection code={code} submit={joinRoom} isPracticeMode={isPracticeMode}/>}
+                    {code === null
+                        ? <CodeInput joinGame={checkRoom} errorClass={errorClass} scanQr={scanQr}/>
+                        : <CharacterSelection code={code} submit={joinRoom} isPracticeMode={isPracticeMode}/>
+                    }
+
                     {code !== null && isPracticeMode && (
                         <div className="result-area">
                             <div className="alternative">
                                 <hr/>
-                                <h2>oder</h2>
+                                <h2>{t("home.practice.or")}</h2>
                                 <hr/>
                             </div>
+
                             <Button
-                                text="Ergebnisse einsehen"
+                                text={t("home.practice.viewResults")}
                                 icon={faChartBar}
                                 onClick={() => setShowResultsDialog(true)}
                                 variant="secondary"
@@ -245,19 +257,29 @@ export const Home = () => {
                         </div>
                     )}
                 </div>
+
                 <div className={`action-area ${code !== null ? 'disabled' : ''}`}>
-                    <Button text="Quiz erstellen" icon={faSwatchbook} padding={"0.8rem 2.5rem"}
-                            disabled={code !== null}
-                            onClick={() => {
-                                setCirclePosition("-30rem 0 0 -30rem");
-                                setTimeout(() => navigate("/create"), 500);
-                            }}/>
-                    <Button text="Raum hosten" icon={faShareFromSquare} padding={"0.8rem 2.5rem"}
-                            disabled={code !== null}
-                            onClick={() => {
-                                setCirclePosition("-30rem 0 0 -30rem");
-                                setTimeout(() => navigate("/load"), 500);
-                            }}/>
+                    <Button
+                        text={t("home.actions.createQuiz")}
+                        icon={faSwatchbook}
+                        padding={"0.8rem 2.5rem"}
+                        disabled={code !== null}
+                        onClick={() => {
+                            setCirclePosition("-30rem 0 0 -30rem");
+                            setTimeout(() => navigate("/create"), 500);
+                        }}
+                    />
+
+                    <Button
+                        text={t("home.actions.hostRoom")}
+                        icon={faShareFromSquare}
+                        padding={"0.8rem 2.5rem"}
+                        disabled={code !== null}
+                        onClick={() => {
+                            setCirclePosition("-30rem 0 0 -30rem");
+                            setTimeout(() => navigate("/load"), 500);
+                        }}
+                    />
                 </div>
             </motion.div>
 

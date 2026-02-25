@@ -1,0 +1,472 @@
+{
+  "common": {
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "close": "Schließen",
+    "ok": "OK",
+    "select": "Auswählen...",
+    "anonymous": "Anonym"
+  },
+  "analyticsTabs": {
+    "overview": "Übersicht",
+    "students": "Schüler",
+    "questions": "Fragen",
+    "recommendations": "Hinweise"
+  },
+  "classOverview": {
+    "stats": {
+      "participants": "Teilnehmer",
+      "questions": "Fragen",
+      "avgAccuracy": "Ø Genauigkeit",
+      "hardQuestions": "Schwere Fragen"
+    },
+    "difficulty": {
+      "title": "Schwierigkeitsverteilung",
+      "easy": "Einfach",
+      "medium": "Mittel",
+      "hard": "Schwer",
+      "questionsCount_one": "{{count}} Frage",
+      "questionsCount_other": "{{count}} Fragen"
+    },
+    "summary": {
+      "needsReview_one": "{{count}} Frage benötigt Wiederholung",
+      "needsReview_other": "{{count}} Fragen benötigen Wiederholung",
+      "allGood": "Alle Fragen wurden gut verstanden"
+    },
+    "live": {
+      "avgPoints": "Ø Punkte: {{points}}"
+    }
+  },
+    "passwordDialog": {
+    "title": "Lehrerpasswort erforderlich",
+    "text": "Bitte geben Sie das <1>Lehrerpasswort</1> ein.",
+    "input": {
+      "placeholder": "Passwort eingeben"
+    },
+    "validation": {
+      "required": "Passwort ist erforderlich"
+    },
+    "actions": {
+      "login": "Anmelden"
+    }
+  },
+    "questionAnalytics": {
+    "difficulty": {
+      "easy": "Einfach",
+      "medium": "Mittel",
+      "hard": "Schwer",
+      "unknown": "Unbekannt"
+    },
+    "questionNumber": "Frage {{n}}",
+    "hardQuestionsTitle": "Schwere Fragen ({{count}})",
+    "reviewItem": "Frage {{n}}: {{title}}"
+  },
+  "recommendations": {
+    "studentsNeedHelp_one": "{{count}} Schüler benötigt Hilfe",
+    "studentsNeedHelp_other": "{{count}} Schüler benötigen Hilfe",
+
+    "hardQuestions_one": "{{count}} schwere Frage",
+    "hardQuestions_other": "{{count}} schwere Fragen",
+
+    "lowClassPerformance": {
+      "title": "Niedrige Klassenleistung: {{pct}}%",
+      "action": "Wiederholung der Inhalte empfohlen"
+    },
+    "goodClassPerformance": {
+      "title": "Gute Klassenleistung: {{pct}}%",
+      "action": "Klasse ist bereit für neue Themen"
+    },
+
+    "labels": {
+      "students": "Schüler:",
+      "questions": "Fragen:"
+    },
+
+    "studentItem": "{{name}} ({{pct}}%)",
+    "questionItem": "Frage {{n}}: {{pct}}%",
+
+    "none": {
+      "title": "Keine Probleme erkannt",
+      "subtitle": "Die Klasse zeigt gute Leistungen."
+    }
+  },
+  "studentAnalytics": {
+    "columns": {
+      "student": "Schüler",
+      "accuracy": "Genauigkeit",
+      "correct": "Richtig",
+      "incorrect": "Falsch",
+      "points": "Punkte",
+      "status": "Status"
+    },
+    "performance": {
+      "excellent": "Gut",
+      "ok": "OK",
+      "help": "Hilfe"
+    },
+    "needsHelpTitle_one": "Benötigt Hilfe ({{count}})",
+    "needsHelpTitle_other": "Benötigen Hilfe ({{count}})"
+  },
+    "endingHost": {
+        "tabs": {
+            "results": "Ergebnisse",
+            "analytics": "Analytics"
+        },
+        "actions": {
+            "downloadExcel": "Als Excel herunterladen"
+        },
+        "toast": {
+            "noAnalyticsToExport": "Keine Analytics-Daten zum Exportieren verfügbar",
+            "exportSuccess": "Analytics exportiert: {{filename}}",
+            "exportError": "Fehler beim Exportieren der Daten"
+        },
+        "noAnalytics": "Keine Analytics-Daten verfügbar. Bitte stellen Sie sicher, dass das Quiz ordnungsgemäß beendet wurde."
+    },
+    "home": {
+        "legal": {
+            "imprint": "Impressum",
+            "privacy": "Datenschutz"
+        },
+        "practice": {
+            "or": "oder",
+            "viewResults": "Ergebnisse einsehen"
+        },
+        "actions": {
+            "createQuiz": "Quiz erstellen",
+            "hostRoom": "Raum hosten"
+        },
+        "errors": {
+            "practiceNotFound": "Übungsquiz nicht gefunden",
+            "checkPracticeFailed": "Fehler beim Überprüfen des Übungsquiz",
+            "roomNotFound": "Raum nicht gefunden",
+            "connectionError": "Verbindungsfehler",
+            "invalidCode": "Ungültiger Code",
+            "joinFailed": "Fehler beim Beitreten"
+        },
+        "characterSelection": {
+            "title": "Wähle deinen Charakter",
+            "namePlaceholder": "Dein Name",
+            "actions": {
+                "join": "Beitreten",
+                "joining": "Beitreten...",
+                "startQuiz": "Quiz starten"
+            }
+        },
+        "codeInput": {
+            "title": "Code eingeben",
+            "or": "oder",
+            "scan": "Code scannen"
+        },
+        "resultsDialog": {
+            "errors": {
+                "practiceNotFound": "Übungsquiz nicht gefunden",
+                "loadResultsFailed": "Fehler beim Laden der Ergebnisse"
+            }
+        }
+    },
+    "host": {
+        "joinInstruction": "Verbinden über die Webseite <1>{{host}}</1> mit Code:",
+        "actions": {
+            "start": "Starten"
+        },
+        "waitingForPlayers": "Warten auf Mitspieler...",
+        "toast": {
+            "roomLocked": "Raum gesperrt",
+            "roomUnlocked": "Raum entsperrt"
+        }
+    },
+    "inGameClient": {
+        "connection": {
+            "reconnecting": "Verbinde wieder...",
+            "lost": "Verbindung verloren",
+            "reconnected": "Erfolgreich wieder verbunden!",
+            "interruptedReconnecting": "Verbindung unterbrochen. Versuche wieder zu verbinden..."
+            },
+        "toast": {
+            "hostLeft": "Der Host hat das Spiel verlassen.",
+            "kicked": "Du wurdest aus dem Raum entfernt."
+            },
+        "session": {
+            "expiredBackHome": "Sitzung abgelaufen. Zurück zur Startseite...",
+            "kickedBackHome": "Du wurdest aus dem Raum entfernt. Zurück zur Startseite...",
+            "hostLeftBackHome": "Der Host hat das Spiel verlassen. Zurück zur Startseite..."
+            },
+        "errors": {
+            "unknownQuestionType": "Unbekannter Fragetyp: {{type}}",
+            "answersNotReady": "Antworten sind noch nicht bereit!",
+            "sendAnswerFailed": "Fehler beim Senden der Antwort"
+            },
+        "answerAlt": "Antwort {{n}}",
+        "results": {
+            "correct": "Richtig!",
+            "partial": "Teilweise richtig!",
+            "wrong": "Falsch!"
+            },
+        "practice": {
+            "chooseNameCharacterFirst": "Bitte wähle zuerst einen Namen und Charakter.",
+            "progress": "Frage {{current}} von {{total}}",
+            "load": {
+                "expired": "Dieses Übungsquiz ist abgelaufen.",
+                "notFound": "Übungsquiz nicht gefunden.",
+                "failed": "Fehler beim Laden des Übungsquiz."
+            },
+            "submit": {
+                "failed": "Fehler beim Senden der Antwort."
+            },
+            "completed": {
+                "title": "Quiz abgeschlossen! 🎉",
+                "backHome": "Zurück zur Startseite"
+            },
+            "nextQuestion": "Nächste Frage",
+            "result": {
+                "correct": "Richtig!",
+                "partial": "Teilweise richtig!",
+                "keepGoing": "Weiter so!"
+            }
+        }
+  },
+    "sequenceClient": {
+        "waitingForQuestion": "Warten auf Frage...",
+        "loadingTask": "Sortieraufgabe wird geladen...",
+        "noAnswers": "Keine Antworten verfügbar",
+        "instructions": "Ziehen Sie die Antworten in die richtige Reihenfolge",
+        "submit": "Antwort senden",
+        "answerAlt": "Antwort {{n}}",
+        "errors": {
+            "needsContents": "Reihenfolge-Fragen benötigen die Antwortinhalte.",
+            "usePracticeMode": "Bitte verwenden Sie den Übungsmodus für Reihenfolge-Fragen."
+        }
+    },
+    "textInputClient": {
+        "placeholder": "Geben Sie Ihre Antwort ein...",
+        "submit": "Antwort senden"
+    },
+    "trueFalseClient": {
+        "true": "Wahr",
+        "false": "Falsch"
+    },
+    "inGameHost": {
+        "actions": {
+        "skipQuestion": "Frage überspringen"
+        },
+        "errors": {
+        "skipFailed": "Fehler beim Überspringen der Frage",
+        "showQuestionFailed": "Fehler beim Anzeigen der Frage"
+        },
+        "toast": {
+        "playerLeft": "{{name}} hat das Spiel verlassen"
+        },
+        "status": {
+        "playersTyping": "Spieler geben ihre Antworten ein...",
+        "playersSorting": "Spieler sortieren ihre Antworten..."
+        }
+    },
+    "answerResults": {
+        "actions": {
+            "showScoreboard": "Scoreboard anzeigen"
+        },
+        "titles": {
+            "correctAnswers": "Richtige Antworten",
+            "correctOrder": "Richtige Reihenfolge",
+            "answers": "Antworten"
+        }
+    },
+    "countdownTimer": {
+        "hurry": "Schnell!",
+        "time": "Zeit"
+    },
+    "doublePoints": {
+        "title": "Doppelte Punkte!",
+        "subtitle": "Diese Frage bringt die doppelte Punktzahl!"
+    },
+    "scoreboard": {
+        "actions": {
+        "next": "Weiter",
+        "home": "Startseite"
+        },
+        "title": {
+        "live": "Scoreboard",
+        "final": "Endstand"
+        }
+    },
+    "practiceResults": {
+        "title": "Übungsquiz Ergebnisse",
+        "codeLabel": "Code:",
+        "loading": "Ergebnisse werden geladen...",
+        "noResults": {
+            "title": "Keine Ergebnisse gefunden"
+        },
+        "toast": {
+            "invalidPassword": "Ungültiges Passwort.",
+            "practiceNotFound": "Übungsquiz nicht gefunden.",
+            "loadFailed": "Fehler beim Laden der Ergebnisse.",
+            "noDataToExport": "Keine Daten zum Exportieren verfügbar",
+            "exportSuccess": "Analytics exportiert: {{filename}}",
+            "exportError": "Fehler beim Exportieren der Daten"
+        },
+        "tabs": {
+            "analytics": "Analytics",
+            "details": "Details"
+        },
+        "stats": {
+            "attempts": "Versuche",
+            "average": "Durchschnitt",
+            "bestScore": "Beste Punktzahl",
+            "days": "Tage",
+            "remaining": "Verbleiben"
+        },
+        "students": {
+            "grouped": "Nach Schülern gruppiert",
+            "labels": {
+                "attempts": "Versuche:",
+                "best": "Beste:",
+                "average": "Durchschnitt:"
+            }
+        },
+        "actions": {
+            "backHome": "Zurück zur Startseite",
+            "downloadExcel": "Als Excel herunterladen"
+        },
+        "studentDetails": {
+            "title": "Detailansicht: {{name}}",
+            "selectAttempt": "Versuch auswählen:",
+            "attempt": "Versuch {{n}}",
+            "questionNumber": "Frage {{n}}:",
+            "loadingQuestions": "Fragen werden geladen..."
+        },
+        "answerLabels": {
+            "answer": "Antwort:",
+            "correct": "Richtig:"
+        },
+        "sequence": {
+            "yourOrder": "Ihre Reihenfolge:",
+            "correctOrder": "Richtige Reihenfolge:"
+        },
+        "answerFallback": "Antwort {{n}}"
+    },
+    "quizCreator": {
+        "titlePlaceholder": "Quiz-Titel eingeben",
+        "validation": {
+            "titleRequired": "Quiz-Titel darf nicht leer sein."
+        },
+        "tooltips": {
+            "import": "Quiz aus Datei importieren",
+            "download": "Quiz als Datei herunterladen",
+            "passwordRequired": "Passwort erforderlich",
+            "uploadLive": "Als Live-Quiz hochladen",
+            "publishPractice": "Als Übungsquiz veröffentlichen",
+            "reset": "Quiz zurücksetzen"
+        },
+        "toast": {
+            "importSuccess": "Quiz erfolgreich importiert!",
+            "invalidFileFormat": "Ungültiges Dateiformat.",
+            "practiceCreated": "Übungsquiz erfolgreich erstellt!",
+            "practiceCode": "Übungscode: {{code}}",
+            "practiceCreateFailed": "Fehler beim Erstellen des Übungsquiz.",
+            "uploadSuccess": "Quiz erfolgreich hochgeladen.",
+            "quizId": "Quiz-ID: {{id}}",
+            "uploadFailed": "Fehler beim Hochladen des Quiz.",
+            "localStorageExceeded": "Dein Quiz übersteigt die lokale Speicherkapazität. Bitte lade es hoch, um zu verhindern, dass es verloren geht wenn du die Seite verlässt."
+        },
+        "errors": {
+            "serverStorageExceeded": "Dein Quiz übersteigt die Speicherkapazität des Servers. Bitte lade es lokal herunter."
+        },
+        "answer": {
+            "placeholder": "Antwort {{n}}"
+        },
+        "sequenceAnswers": {
+            "title": "Antworten",
+            "hint": "Sortieren Sie die Antworten in die richtige Reihenfolge.",
+            "addPlaceholder": "Neue Antwort hinzufügen...",
+            "emptyHint": "Fügen Sie mindestens zwei Antworten hinzu, die in der richtigen Reihenfolge sortiert werden sollen",
+            "add": "Antwort hinzufügen",
+            "remove": "Antwort entfernen"
+        },
+        "textAnswers": {
+            "title": "Richtige Antworten",
+            "hint": "Groß-/Kleinschreibung wird ignoriert",
+            "addPlaceholder": "Neue Antwort hinzufügen...",
+            "emptyHint": "Fügen Sie mindestens eine akzeptierte Antwort hinzu",
+            "add": "Antwort hinzufügen",
+            "remove": "Antwort entfernen"
+        },
+        "questionPreview": {
+            "noTitle": "Kein Fragentitel"
+        },
+        "questionSettings": {
+            "title": "Fragen-Einstellungen",
+            "timer": {
+                "label": "Zeitlimit",
+                "placeholder": "Timer auswählen...",
+                "options": {
+                "default": {
+                    "label": "Standard (60s)",
+                    "description": "Standardzeit für Fragen"
+                },
+                "s30": {
+                    "label": "30 Sekunden",
+                    "description": "Schnelle Fragen"
+                },
+                "s120": {
+                    "label": "2 Minuten",
+                    "description": "Mehr Zeit zum Nachdenken"
+                },
+                "unlimited": {
+                    "label": "Unbegrenzt",
+                    "description": "Kein Zeitlimit"
+                }
+                }
+            },
+            "points": {
+                "label": "Punkteverteilung",
+                "placeholder": "Punkteverteilung auswählen...",
+                "options": {
+                "standard": {
+                    "label": "Standard",
+                    "description": "Normale Punkteverteilung"
+                },
+                "none": {
+                    "label": "Keine Punkte",
+                    "description": "Für diese Frage gibt es keine Punkte"
+                },
+                "double": {
+                    "label": "Doppelte Punkte",
+                    "description": "Diese Frage bringt doppelte Punkte"
+                }
+                }
+            }
+        }
+    },
+    "questionEditor": {
+        "titlePlaceholder": "Fragentitel eingeben"
+    },
+    "quizLoader": {
+        "quizIdPlaceholder": "Quiz-ID (z. B. JWTIOI)",
+        "or": "oder",
+        "uploadFile": "Datei hochladen",
+        "dragDrop": "Datei hier ablegen",
+        "toast": {
+        "loadedSuccess": "Quiz erfolgreich geladen!",
+        "invalidFileFormat": "Ungültiges Dateiformat.",
+        "idNotFound": "Quiz-ID nicht gefunden. Versichere dich, dass du die richtige ID eingegeben hast und das Quiz auf der Instanz von {{name}} läuft."
+        }
+    },
+    "questionTypes": {
+        "multipleChoice": {
+        "name": "Auswahlmöglichkeiten",
+        "description": "Spieler wählen aus vorgegebenen Antwortmöglichkeiten"
+        },
+        "trueFalse": {
+        "name": "Wahr/Falsch",
+        "description": "Spieler wählen zwischen Wahr und Falsch"
+        },
+        "text": {
+        "name": "Text Eingabe",
+        "description": "Spieler geben ihre Antwort als Text ein"
+        },
+        "sequence": {
+        "name": "Reihenfolge",
+        "description": "Spieler sortieren Antworten in die richtige Reihenfolge"
+        }
+    }
+}

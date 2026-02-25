@@ -4,8 +4,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock, faInfinity, faCoins} from "@fortawesome/free-solid-svg-icons";
 import {useState, useEffect} from "react";
 import {motion} from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export const QuestionSettings = ({question, onChange}) => {
+    const { t } = useTranslation();
+
     const [selectedTimer, setSelectedTimer] = useState(() => {
         if (question.timer === undefined || question.timer === null) return "default";
         if (question.timer === -1) return "unlimited";
@@ -22,26 +25,26 @@ export const QuestionSettings = ({question, onChange}) => {
     const timerOptions = [
         {
             value: "default",
-            label: "Standard (60s)",
-            description: "Standardzeit für Fragen",
+            label: t("quizCreator.questionSettings.timer.options.default.label"),
+            description: t("quizCreator.questionSettings.timer.options.default.description"),
             icon: faClock
         },
         {
             value: "30",
-            label: "30 Sekunden",
-            description: "Schnelle Fragen",
+            label: t("quizCreator.questionSettings.timer.options.s30.label"),
+            description: t("quizCreator.questionSettings.timer.options.s30.description"),
             icon: faClock
         },
         {
             value: "120",
-            label: "2 Minuten",
-            description: "Mehr Zeit zum Nachdenken",
+            label: t("quizCreator.questionSettings.timer.options.s120.label"),
+            description: t("quizCreator.questionSettings.timer.options.s120.description"),
             icon: faClock
         },
         {
             value: "unlimited",
-            label: "Unbegrenzt",
-            description: "Kein Zeitlimit",
+            label: t("quizCreator.questionSettings.timer.options.unlimited.label"),
+            description: t("quizCreator.questionSettings.timer.options.unlimited.description"),
             icon: faInfinity
         }
     ];
@@ -49,20 +52,20 @@ export const QuestionSettings = ({question, onChange}) => {
     const pointMultiplierOptions = [
         {
             value: "standard",
-            label: "Standard",
-            description: "Normale Punkteverteilung",
+            label: t("quizCreator.questionSettings.points.options.standard.label"),
+            description: t("quizCreator.questionSettings.points.options.standard.description"),
             icon: faCoins
         },
         {
             value: "none",
-            label: "Keine Punkte",
-            description: "Für diese Frage gibt es keine Punkte",
+            label: t("quizCreator.questionSettings.points.options.none.label"),
+            description: t("quizCreator.questionSettings.points.options.none.description"),
             icon: faCoins
         },
         {
             value: "double",
-            label: "Doppelte Punkte",
-            description: "Diese Frage bringt doppelte Punkte",
+            label: t("quizCreator.questionSettings.points.options.double.label"),
+            description: t("quizCreator.questionSettings.points.options.double.description"),
             icon: faCoins
         }
     ];
@@ -120,25 +123,35 @@ export const QuestionSettings = ({question, onChange}) => {
             transition={{duration: 0.25, delay: 0.2, ease: "easeOut"}}
         >
             <div className="settings-header">
-                <h3>Fragen-Einstellungen</h3>
+                <h3>{t("quizCreator.questionSettings.title")}</h3>
             </div>
 
             <div className="setting-group">
                 <div className="setting-label">
                     <FontAwesomeIcon icon={faClock}/>
-                    <span>Zeitlimit</span>
+                    <span>{t("quizCreator.questionSettings.timer.label")}</span>
                 </div>
 
-                <SelectBox value={selectedTimer} onChange={handleTimerChange} options={timerOptions} placeholder="Timer auswählen..."/>
+                <SelectBox
+                    value={selectedTimer}
+                    onChange={handleTimerChange}
+                    options={timerOptions}
+                    placeholder={t("quizCreator.questionSettings.timer.placeholder")}
+                />
             </div>
 
             <div className="setting-group">
                 <div className="setting-label">
                     <FontAwesomeIcon icon={faCoins}/>
-                    <span>Punkteverteilung</span>
+                    <span>{t("quizCreator.questionSettings.points.label")}</span>
                 </div>
 
-                <SelectBox value={selectedPointMultiplier} onChange={handlePointMultiplierChange} options={pointMultiplierOptions} placeholder="Punkteverteilung auswählen..."/>
+                <SelectBox
+                    value={selectedPointMultiplier}
+                    onChange={handlePointMultiplierChange}
+                    options={pointMultiplierOptions}
+                    placeholder={t("quizCreator.questionSettings.points.placeholder")}
+                />
             </div>
         </motion.div>
     );

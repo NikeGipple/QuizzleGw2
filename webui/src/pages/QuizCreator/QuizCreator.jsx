@@ -1,5 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import {Link, useOutletContext} from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {BrandingContext} from "@/common/contexts/Branding";
 import {AnimatePresence, motion, Reorder} from "framer-motion";
 import "./styles.sass";
@@ -30,6 +31,8 @@ import {usePasswordAuthentication} from "@/common/hooks/usePasswordAuthenticatio
 import {DEFAULT_QUESTION_TYPE} from "@/common/constants/QuestionTypes.js";
 
 export const QuizCreator = () => {
+    const { t } = useTranslation();
+
     const {setCirclePosition} = useOutletContext();
     const {logoImg} = useContext(BrandingContext);
     const titleValidation = useInputValidation(localStorage.getItem("qq_title") || "", validationRules.quizTitle);
@@ -62,7 +65,7 @@ export const QuizCreator = () => {
                             };
                         });
                     }
-                    
+
                     return {
                         ...cleanQuestion,
                         type: cleanQuestion.type || DEFAULT_QUESTION_TYPE
@@ -102,9 +105,9 @@ export const QuizCreator = () => {
                 titleValidation.setValue(importedData.title);
                 setQuestions(importedData.questions);
                 setActiveQuestion(importedData.questions[0].uuid);
-                toast.success("Quiz erfolgreich importiert!");
+                toast.success(t("quizCreator.toast.importSuccess"));
             } catch (error) {
-                toast.error(error.message || "Ungültiges Dateiformat.");
+                toast.error(error.message || t("quizCreator.toast.invalidFileFormat"));
             }
         });
     }
@@ -118,7 +121,7 @@ export const QuizCreator = () => {
             const { imageId, ...answerWithoutImage } = answer;
             return answerWithoutImage.type === "image" ? { ...answerWithoutImage, type: "text", content: "" } : answerWithoutImage;
         }) : [];
-        
+
         const newQuestion = {...questionWithoutImage, uuid: newUuid, answers: cleanAnswers};
         const questionIndex = questions.findIndex(q => q.uuid === uuid);
         const newQuestions = [...questions];
@@ -142,7 +145,7 @@ export const QuizCreator = () => {
 
     const handlePracticeUploadClick = () => {
         if (!titleValidation.validate()) {
-            toast.error("Quiz-Titel darf nicht leer sein.");
+            toast.error(t("quizCreator.validation.titleRequired"));
             return;
         }
         if (!validateQuestions()) return;
@@ -155,19 +158,19 @@ export const QuizCreator = () => {
             const authData = getAuthData();
             const response = await putRequest("/practice", quizData, authData);
             if (response.practiceCode) {
-                toast.success("Übungsquiz erfolgreich erstellt!");
-                toast.success(`Übungscode: ${response.practiceCode}`, {duration: 10000});
+                toast.success(t("quizCreator.toast.practiceCreated"));
+                toast.success(t("quizCreator.toast.practiceCode", { code: response.practiceCode }), {duration: 10000});
                 navigator.clipboard?.writeText(response.practiceCode);
             }
         } catch (error) {
             console.error('Practice quiz creation error:', error);
-            toast.error("Fehler beim Erstellen des Übungsquiz.");
+            toast.error(t("quizCreator.toast.practiceCreateFailed"));
         }
     };
 
     const uploadQuiz = async () => {
         if (!titleValidation.validate()) {
-            toast.error("Quiz-Titel darf nicht leer sein.");
+            toast.error(t("quizCreator.validation.titleRequired"));
             return;
         }
         if (!validateQuestions()) return;
@@ -176,18 +179,18 @@ export const QuizCreator = () => {
         const headers = getAuthHeaders();
 
         putRequest("/quizzes", quizData, headers).then((r) => {
-            if (r.quizId === undefined) throw {ce: "Dein Quiz übersteigt die Speicherkapazität des Servers. Bitte lade es lokal herunter."};
-            toast.success("Quiz erfolgreich hochgeladen.");
-            toast.success("Quiz-ID: " + r.quizId, {duration: 10000});
+            if (r.quizId === undefined) throw {ce: t("quizCreator.errors.serverStorageExceeded")};
+            toast.success(t("quizCreator.toast.uploadSuccess"));
+            toast.success(t("quizCreator.toast.quizId", { id: r.quizId }), {duration: 10000});
             navigator.clipboard?.writeText(r.quizId);
         }).catch((e) => {
-            toast.error(e?.ce ? e.ce : "Fehler beim Hochladen des Quiz.");
+            toast.error(e?.ce ? e.ce : t("quizCreator.toast.uploadFailed"));
         });
     }
 
     const downloadQuiz = async () => {
         if (!titleValidation.validate()) {
-            toast.error("Quiz-Titel darf nicht leer sein.");
+            toast.error(t("quizCreator.validation.titleRequired"));
             return;
         }
         if (!validateQuestions()) return;
@@ -229,11 +232,15 @@ export const QuizCreator = () => {
             }
         } catch (e) {
             if (!errorToastId) {
-                setErrorToastId(toast.error("Dein Quiz übersteigt die lokale Speicherkapazität. Bitte lade es hoch, um zu verhindern, dass es verloren geht wenn du die Seite verlässt.",
-                    {
-                        duration: Infinity,
-                        icon: <FontAwesomeIcon color={"#FFA500"} icon={faExclamationTriangle} size="lg"/>
-                    }));
+                setErrorToastId(
+                    toast.error(
+                        t("quizCreator.toast.localStorageExceeded"),
+                        {
+                            duration: Infinity,
+                            icon: <FontAwesomeIcon color={"#FFA500"} icon={faExclamationTriangle} size="lg"/>
+                        }
+                    )
+                );
             }
         }
 
@@ -249,7 +256,7 @@ export const QuizCreator = () => {
 
                     <Input
                         className="quiz-title-input"
-                        placeholder="Quiz-Titel eingeben"
+                        placeholder={t("quizCreator.titlePlaceholder")}
                         value={titleValidation.value}
                         onChange={(e) => titleValidation.setValue(e.target.value)}
                         onBlur={titleValidation.onBlur}
@@ -257,47 +264,52 @@ export const QuizCreator = () => {
                         warning={titleValidation.warning}
                         maxLength={validationRules.quizTitle.maxLength}
                     />
+
                     <div className="quiz-action-area">
                         <div className="action-group">
-                            <div 
-                                className="action-button import" 
+                            <div
+                                className="action-button import"
                                 onClick={importQuiz}
-                                title="Quiz aus Datei importieren"
+                                title={t("quizCreator.tooltips.import")}
                             >
                                 <FontAwesomeIcon icon={faFileImport} />
                             </div>
-                            <div 
-                                className="action-button download" 
+                            <div
+                                className="action-button download"
                                 onClick={downloadQuiz}
-                                title="Quiz als Datei herunterladen"
+                                title={t("quizCreator.tooltips.download")}
                             >
                                 <FontAwesomeIcon icon={faFileDownload} />
                             </div>
                         </div>
-                        
+
                         <div className="action-group">
-                            <div 
+                            <div
                                 className={`action-button upload ${passwordProtected && !isAuthenticated ? 'locked' : ''}`}
                                 onClick={handleUploadClick}
-                                title={passwordProtected && !isAuthenticated ? "Passwort erforderlich" : "Als Live-Quiz hochladen"}
+                                title={passwordProtected && !isAuthenticated
+                                    ? t("quizCreator.tooltips.passwordRequired")
+                                    : t("quizCreator.tooltips.uploadLive")}
                             >
                                 <FontAwesomeIcon icon={faCloudUpload} />
                             </div>
-                            <div 
+                            <div
                                 className={`action-button practice ${passwordProtected && !isAuthenticated ? 'locked' : ''}`}
                                 onClick={handlePracticeUploadClick}
-                                title={passwordProtected && !isAuthenticated ? "Passwort erforderlich" : "Als Übungsquiz veröffentlichen"}
+                                title={passwordProtected && !isAuthenticated
+                                    ? t("quizCreator.tooltips.passwordRequired")
+                                    : t("quizCreator.tooltips.publishPractice")}
                             >
                                 <FontAwesomeIcon icon={faGraduationCap} />
                             </div>
                         </div>
 
                         {(titleValidation.value !== "" || questions.some(q => q.title !== "") || questions.length > 1 ||
-                                questions.some(q => q.answers.length > 0)) && (
-                            <div 
-                                className="action-button clear" 
+                            questions.some(q => q.answers.length > 0)) && (
+                            <div
+                                className="action-button clear"
                                 onClick={clearQuiz}
-                                title="Quiz zurücksetzen"
+                                title={t("quizCreator.tooltips.reset")}
                             >
                                 <FontAwesomeIcon icon={faEraser} />
                             </div>
@@ -307,7 +319,6 @@ export const QuizCreator = () => {
             </div>
 
             <div className="question-area">
-
                 <motion.div className="question-list"
                             initial={{opacity: 0, y: -50}} animate={{opacity: 1, y: 0}}>
                     <Reorder.Group
@@ -331,10 +342,19 @@ export const QuizCreator = () => {
                     <AddQuestion onClick={addQuestion}/>
                 </motion.div>
 
-                <QuestionEditor key={activeQuestion} question={questions.find(q => q.uuid === activeQuestion)}
-                    onChange={onChange} deleteQuestion={deleteQuestion} duplicateQuestion={duplicateQuestion} />
-                    
-                <QuestionSettings key={`settings-${activeQuestion}`} question={questions.find(q => q.uuid === activeQuestion)} onChange={onChange} />
+                <QuestionEditor
+                    key={activeQuestion}
+                    question={questions.find(q => q.uuid === activeQuestion)}
+                    onChange={onChange}
+                    deleteQuestion={deleteQuestion}
+                    duplicateQuestion={duplicateQuestion}
+                />
+
+                <QuestionSettings
+                    key={`settings-${activeQuestion}`}
+                    question={questions.find(q => q.uuid === activeQuestion)}
+                    onChange={onChange}
+                />
             </div>
 
             <PasswordDialog

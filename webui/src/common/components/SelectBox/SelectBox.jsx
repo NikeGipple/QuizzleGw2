@@ -3,10 +3,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown} from "@fortawesome/free-solid-svg-icons";
 import {useState, useRef, useEffect} from "react";
 import {motion, AnimatePresence} from "framer-motion";
+import { useTranslation } from "react-i18next";
 
-export const SelectBox = ({value, onChange, options, placeholder = "Auswählen...", disabled = false}) => {
+export const SelectBox = ({value, onChange, options, placeholder, disabled = false}) => {
     const [isOpen, setIsOpen] = useState(false);
     const selectRef = useRef(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -34,6 +36,7 @@ export const SelectBox = ({value, onChange, options, placeholder = "Auswählen..
     };
 
     const selectedOption = getSelectedOption();
+    const placeholderLabel = placeholder ?? t("common.select");
 
     return (
         <div className={`select-box ${disabled ? 'disabled' : ''}`} ref={selectRef}>
@@ -50,7 +53,7 @@ export const SelectBox = ({value, onChange, options, placeholder = "Auswählen..
                             <span className="option-label">{selectedOption.label}</span>
                         </div>
                     ) : (
-                        <span className="placeholder">{placeholder}</span>
+                        <span className="placeholder">{placeholderLabel}</span>
                     )}
                 </div>
                 <FontAwesomeIcon

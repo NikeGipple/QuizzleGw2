@@ -4,6 +4,7 @@ import {faClock, faExclamationTriangle, faHourglassHalf} from "@fortawesome/free
 import {useState, useEffect, useRef} from "react";
 import {useSoundManager} from "@/common/utils/SoundManager.js";
 import {motion, AnimatePresence} from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export const CountdownTimer = ({duration, onTimeUp, isActive = true}) => {
     const [timeLeft, setTimeLeft] = useState(duration);
@@ -13,6 +14,7 @@ export const CountdownTimer = ({duration, onTimeUp, isActive = true}) => {
     const intervalRef = useRef(null);
     const soundManager = useSoundManager();
     const lastTickRef = useRef(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setTimeLeft(duration);
@@ -41,7 +43,7 @@ export const CountdownTimer = ({duration, onTimeUp, isActive = true}) => {
                         lastTickRef.current = newTime;
                     }
                 }
-                
+
                 if (newTime <= 30 && newTime > 10) {
                     setIsWarning(true);
                     setIsCritical(false);
@@ -52,7 +54,7 @@ export const CountdownTimer = ({duration, onTimeUp, isActive = true}) => {
                     setIsWarning(false);
                     setIsCritical(false);
                 }
-                
+
                 if (newTime <= 0) {
                     clearInterval(intervalRef.current);
                     intervalRef.current = null;
@@ -61,7 +63,7 @@ export const CountdownTimer = ({duration, onTimeUp, isActive = true}) => {
                     onTimeUp();
                     return 0;
                 }
-                
+
                 return newTime;
             });
         }, 1000);
@@ -104,13 +106,13 @@ export const CountdownTimer = ({duration, onTimeUp, isActive = true}) => {
 
     return (
         <AnimatePresence>
-            <motion.div 
+            <motion.div
                 className={`countdown-timer ${getTimerColor()}`}
                 initial={{ scale: 0, opacity: 0, y: -20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0, opacity: 0, y: -20 }}
-                transition={{ 
-                    duration: 0.5, 
+                transition={{
+                    duration: 0.5,
                     ease: "easeOut",
                     type: "spring",
                     stiffness: 200,
@@ -123,22 +125,22 @@ export const CountdownTimer = ({duration, onTimeUp, isActive = true}) => {
                             <FontAwesomeIcon icon={getTimerIcon()} className="timer-icon" />
                         </div>
                         <div className="timer-progress-container">
-                            <div 
+                            <div
                                 className="timer-progress-bar"
-                                style={{ 
+                                style={{
                                     width: `${getProgressPercentage()}%`,
                                     transition: 'width 0.5s ease-out'
                                 }}
                             />
                         </div>
                     </div>
-                    
+
                     <div className="timer-content">
                         <div className="timer-time">
                             {formatTime(timeLeft)}s
                         </div>
                         <div className="timer-label">
-                            {isCritical ? 'Schnell!' : 'Zeit'}
+                            {isCritical ? t("countdownTimer.hurry") : t("countdownTimer.time")}
                         </div>
                     </div>
                 </div>

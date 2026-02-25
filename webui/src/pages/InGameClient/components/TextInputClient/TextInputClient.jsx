@@ -2,9 +2,11 @@ import "./styles.sass";
 import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 export const TextInputClient = ({onSubmit, maxLength = 200}) => {
     const [textAnswer, setTextAnswer] = useState("");
+    const { t } = useTranslation();
 
     const handleSubmit = () => {
         if (textAnswer.trim() !== "") {
@@ -19,6 +21,8 @@ export const TextInputClient = ({onSubmit, maxLength = 200}) => {
         }
     };
 
+    const canSubmit = textAnswer.trim() !== "";
+
     return (
         <div className="text-input-client">
             <div className="text-input-container">
@@ -26,7 +30,7 @@ export const TextInputClient = ({onSubmit, maxLength = 200}) => {
                     value={textAnswer}
                     onChange={(e) => setTextAnswer(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    placeholder="Geben Sie Ihre Antwort ein..."
+                    placeholder={t("textInputClient.placeholder")}
                     maxLength={maxLength}
                     className="text-answer-input"
                 />
@@ -34,10 +38,12 @@ export const TextInputClient = ({onSubmit, maxLength = 200}) => {
                     {textAnswer.length}/{maxLength}
                 </div>
             </div>
-            <button 
+
+            <button
                 onClick={handleSubmit}
-                disabled={textAnswer.trim() === ""}
-                className={`submit-text-answer ${textAnswer.trim() !== "" ? "submit-shown" : ""}`}
+                disabled={!canSubmit}
+                className={`submit-text-answer ${canSubmit ? "submit-shown" : ""}`}
+                aria-label={t("textInputClient.submit")}
             >
                 <FontAwesomeIcon icon={faPaperPlane} />
             </button>

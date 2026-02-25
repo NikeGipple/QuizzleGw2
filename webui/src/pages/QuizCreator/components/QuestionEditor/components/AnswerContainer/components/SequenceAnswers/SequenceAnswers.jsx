@@ -3,9 +3,11 @@ import {useState, useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faTrash, faGripVertical} from "@fortawesome/free-solid-svg-icons";
 import {Reorder, AnimatePresence, motion} from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export const SequenceAnswers = ({answers, onChange}) => {
     const [newAnswer, setNewAnswer] = useState("");
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (answers.some(answer => !answer.id)) {
@@ -19,8 +21,8 @@ export const SequenceAnswers = ({answers, onChange}) => {
 
     const addAnswer = () => {
         if (newAnswer.trim() && answers.length < 8) {
-            const newAnswers = [...answers, { 
-                content: newAnswer.trim(), 
+            const newAnswers = [...answers, {
+                content: newAnswer.trim(),
                 order: answers.length + 1,
                 id: `answer-${Date.now()}-${Math.random()}`
             }];
@@ -65,10 +67,10 @@ export const SequenceAnswers = ({answers, onChange}) => {
     return (
         <div className="sequence-answers-container">
             <div className="sequence-answers-header">
-                <h3>Antworten</h3>
-                <span className="sequence-answers-hint">Sortieren Sie die Antworten in die richtige Reihenfolge.</span>
+                <h3>{t("quizCreator.sequenceAnswers.title")}</h3>
+                <span className="sequence-answers-hint">{t("quizCreator.sequenceAnswers.hint")}</span>
             </div>
-            
+
             {answers.length > 0 && (
                 <Reorder.Group
                     as="div"
@@ -78,12 +80,12 @@ export const SequenceAnswers = ({answers, onChange}) => {
                 >
                     <AnimatePresence initial={false}>
                         {answers.map((answer, index) => (
-                            <Reorder.Item 
-                                key={answer.id || `answer-${index}`} 
+                            <Reorder.Item
+                                key={answer.id || `answer-${index}`}
                                 value={answer}
                                 style={{listStyleType: "none"}}
                             >
-                                <motion.div 
+                                <motion.div
                                     className="sequence-answer-item"
                                     initial={{opacity: 0, y: -20}}
                                     animate={{opacity: 1, y: 0}}
@@ -99,7 +101,7 @@ export const SequenceAnswers = ({answers, onChange}) => {
                                         value={answer.content}
                                         onChange={(e) => updateAnswer(index, e.target.value)}
                                         onBlur={(e) => handleInputBlur(index, e.target.value)}
-                                        placeholder={`Antwort ${index + 1}`}
+                                        placeholder={t("quizCreator.answer.placeholder", { n: index + 1 })}
                                         className="sequence-answer-input"
                                         maxLength={150}
                                     />
@@ -107,6 +109,7 @@ export const SequenceAnswers = ({answers, onChange}) => {
                                         onClick={() => removeAnswer(index)}
                                         className="remove-answer-btn"
                                         type="button"
+                                        aria-label={t("quizCreator.sequenceAnswers.remove")}
                                     >
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
@@ -123,7 +126,7 @@ export const SequenceAnswers = ({answers, onChange}) => {
                     type="text"
                     value={newAnswer}
                     onChange={(e) => setNewAnswer(e.target.value)}
-                    placeholder="Neue Antwort hinzufügen..."
+                    placeholder={t("quizCreator.sequenceAnswers.addPlaceholder")}
                     className="new-answer-input"
                     maxLength={150}
                     onKeyPress={(e) => {
@@ -138,6 +141,7 @@ export const SequenceAnswers = ({answers, onChange}) => {
                     className="add-answer-btn"
                     type="button"
                     disabled={!newAnswer.trim() || answers.length >= 8}
+                    aria-label={t("quizCreator.sequenceAnswers.add")}
                 >
                     <FontAwesomeIcon icon={faPlus} />
                 </button>
@@ -145,9 +149,11 @@ export const SequenceAnswers = ({answers, onChange}) => {
 
             {answers.length === 0 && (
                 <div className="no-answers-hint">
-                    Fügen Sie mindestens zwei Antworten hinzu, die in der richtigen Reihenfolge sortiert werden sollen
+                    {t("quizCreator.sequenceAnswers.emptyHint")}
                 </div>
             )}
         </div>
     );
 };
+
+export default SequenceAnswers;

@@ -3,8 +3,11 @@ import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheckCircle, faImage} from "@fortawesome/free-solid-svg-icons";
 import {imageCache} from "@/common/utils/ImageCacheUtil.js";
+import { useTranslation } from "react-i18next";
 
 export const Answer = ({color, answer, onChange, index, removeAnswer, questionUuid}) => {
+    const { t } = useTranslation();
+
     const [answerContent, setAnswerContent] = useState(answer && answer.type === "text" ? answer.content : "");
     const [isCorrect, setIsCorrect] = useState(answer ? answer.is_correct || false : false);
     const [imageDataUrl, setImageDataUrl] = useState(null);
@@ -120,12 +123,25 @@ export const Answer = ({color, answer, onChange, index, removeAnswer, questionUu
     return (
         <div className={`quiz-answer quiz-answer-${color}`} style={{ opacity: isLoading ? 0.7 : 1 }}>
             {hasImage && !isLoading && <img src={imageDataUrl} alt="answer" onClick={deleteImage}/>}
-            {!hasImage && !isLoading && <input type="text" placeholder={`Antwort ${index + 1}`} value={answerContent}
-                   onChange={(e) => updateAnswerContent(e.target.value)}/>}
+            {!hasImage && !isLoading && (
+                <input
+                    type="text"
+                    placeholder={t("quizCreator.answer.placeholder", { n: index + 1 })}
+                    value={answerContent}
+                    onChange={(e) => updateAnswerContent(e.target.value)}
+                />
+            )}
             <div className="answer-actions">
-                {answerContent === "" && !hasImage && !isLoading && <FontAwesomeIcon icon={faImage} onClick={uploadImage} className="img-icon"/>}
-                {(answerContent !== "" || hasImage) && !isLoading && <FontAwesomeIcon icon={faCheckCircle}
-                    onClick={updateCorrect} className={isCorrect ? "quiz-answer-correct" : ""}/>}
+                {answerContent === "" && !hasImage && !isLoading && (
+                    <FontAwesomeIcon icon={faImage} onClick={uploadImage} className="img-icon"/>
+                )}
+                {(answerContent !== "" || hasImage) && !isLoading && (
+                    <FontAwesomeIcon
+                        icon={faCheckCircle}
+                        onClick={updateCorrect}
+                        className={isCorrect ? "quiz-answer-correct" : ""}
+                    />
+                )}
             </div>
         </div>
     )

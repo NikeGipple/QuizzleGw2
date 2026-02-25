@@ -6,32 +6,34 @@ import StudentAnalytics from '../StudentAnalytics';
 import QuestionAnalytics from '../QuestionAnalytics';
 import RecommendationsTab from '../RecommendationsTab';
 import './styles.sass';
+import { useTranslation } from "react-i18next";
 
 const AnalyticsTabs = ({ analyticsData, quizData, isLiveQuiz = false }) => {
     const [activeTab, setActiveTab] = useState('overview');
+    const { t } = useTranslation();
 
     const tabs = [
         {
             id: 'overview',
-            title: 'Übersicht',
+            title: t('analyticsTabs.overview'),
             icon: faChartPie,
             component: ClassOverview
         },
         {
             id: 'students',
-            title: 'Schüler',
+            title: t('analyticsTabs.students'),
             icon: faUsers,
             component: StudentAnalytics
         },
         {
             id: 'questions',
-            title: 'Fragen',
+            title: t('analyticsTabs.questions'),
             icon: faQuestionCircle,
             component: QuestionAnalytics
         },
         {
             id: 'recommendations',
-            title: 'Hinweise',
+            title: t('analyticsTabs.recommendations'),
             icon: faGraduationCap,
             component: RecommendationsTab
         }

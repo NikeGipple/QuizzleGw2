@@ -7,15 +7,24 @@ import AnswerContainer from "@/pages/QuizCreator/components/QuestionEditor/compo
 import {motion, AnimatePresence} from "framer-motion";
 import {useState, useRef, useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {QUESTION_TYPE_CONFIG, getQuestionTypeIcon, getQuestionTypeName, getDefaultAnswersForType, DEFAULT_QUESTION_TYPE} from "@/common/constants/QuestionTypes.js";
+import {
+    QUESTION_TYPE_CONFIG,
+    getQuestionTypeIcon,
+    getQuestionTypeConfig,
+    getDefaultAnswersForType,
+    DEFAULT_QUESTION_TYPE
+} from "@/common/constants/QuestionTypes.js";
+import { useTranslation } from "react-i18next";
 
 export const QuestionEditor = ({question, onChange, deleteQuestion, duplicateQuestion}) => {
+    const { t } = useTranslation();
+
     const [showTypeSelector, setShowTypeSelector] = useState(false);
     const popoverRef = useRef(null);
-    
+
     const updateTitle = (title) => onChange({...question, title: title});
     const updateType = (type) => {
-        const newAnswers = getDefaultAnswersForType(type);
+        const newAnswers = getDefaultAnswersForType(type, t);
         if (newAnswers.length === 0) {
             onChange({...question, type: type});
         } else {
@@ -39,30 +48,30 @@ export const QuestionEditor = ({question, onChange, deleteQuestion, duplicateQue
 
     const getTypeIcon = (type) => getQuestionTypeIcon(type);
     const getTypeName = (type) => getQuestionTypeName(type);
-    const getTypeDescription = (type) => {
-        const config = QUESTION_TYPE_CONFIG.find(c => c.type === type);
-        return config ? config.description : '';
-    };
 
     return (
         <motion.div className="question-editor" initial={{x: -300, opacity: 0}} animate={{x: 0, opacity: 1}}>
             <div className="question-action-area">
-                <Input placeholder="Fragentitel eingeben" value={question.title} onChange={(e) => updateTitle(e.target.value)}
-                          textAlign="center"/>
-                
+                <Input
+                    placeholder={t("questionEditor.titlePlaceholder")}
+                    value={question.title}
+                    onChange={(e) => updateTitle(e.target.value)}
+                    textAlign="center"
+                />
+
                 <div className="question-type-selector-container" ref={popoverRef}>
-                    <button 
-                        className="question-type-button" 
+                    <button
+                        className="question-type-button"
                         onClick={() => setShowTypeSelector(!showTypeSelector)}
                         type="button"
                     >
                         <FontAwesomeIcon icon={getTypeIcon(questionType)} />
-                        <span>{getTypeName(questionType)}</span>
+                        <span>{t(getQuestionTypeConfig(questionType).nameKey)}</span>
                     </button>
-                    
+
                     <AnimatePresence>
                         {showTypeSelector && (
-                            <motion.div 
+                            <motion.div
                                 className="type-selector-popover"
                                 initial={{opacity: 0, y: -10, scale: 0.95}}
                                 animate={{opacity: 1, y: 0, scale: 1}}
@@ -70,29 +79,28 @@ export const QuestionEditor = ({question, onChange, deleteQuestion, duplicateQue
                                 transition={{duration: 0.2}}
                             >
                                 {QUESTION_TYPE_CONFIG.map((typeOption) => (
-                                    <div 
+                                    <div
                                         key={typeOption.type}
                                         className={`type-option ${questionType === typeOption.type ? 'active' : ''}`}
                                         onClick={() => updateType(typeOption.type)}
                                     >
                                         <div className="type-option-header">
                                             <FontAwesomeIcon icon={typeOption.icon} />
-                                            <span className="type-name">{typeOption.name}</span>
+                                            <span className="type-name">{t(typeOption.nameKey)}</span>
                                         </div>
-                                        <p className="type-description">{typeOption.description}</p>
+                                        <p className="type-description">{t(typeOption.descriptionKey)}</p>
                                     </div>
                                 ))}
                             </motion.div>
                         )}
                     </AnimatePresence>
                 </div>
-                
+
                 <Button icon={faClone} type="green" onClick={() => duplicateQuestion(question.uuid)} padding="0.8rem 0.8rem"/>
                 <Button icon={faTrash} type="red" onClick={() => deleteQuestion(question.uuid)} padding="0.8rem 0.8rem"/>
             </div>
 
             <ImagePresenter question={question} onChange={onChange}/>
-
             <AnswerContainer question={question} onChange={onChange} />
         </motion.div>
     )

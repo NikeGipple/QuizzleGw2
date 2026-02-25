@@ -3,10 +3,12 @@ import {useState, useEffect} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane, faGripVertical, faSort} from "@fortawesome/free-solid-svg-icons";
 import {Reorder, AnimatePresence, motion} from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export const SequenceClient = ({question, onSubmit}) => {
     const [sortableAnswers, setSortableAnswers] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (question && question.answers && Array.isArray(question.answers) && question.answers.length > 0) {
@@ -37,7 +39,7 @@ export const SequenceClient = ({question, onSubmit}) => {
             <div className="sequence-client">
                 <div className="sequence-instructions">
                     <FontAwesomeIcon icon={faSort} className="sequence-icon" />
-                    <span>Warten auf Frage...</span>
+                    <span>{t("sequenceClient.waitingForQuestion")}</span>
                 </div>
             </div>
         );
@@ -48,11 +50,11 @@ export const SequenceClient = ({question, onSubmit}) => {
             <div className="sequence-client">
                 <div className="sequence-instructions">
                     <FontAwesomeIcon icon={faSort} className="sequence-icon" />
-                    <span>Sortieraufgabe wird geladen...</span>
+                    <span>{t("sequenceClient.loadingTask")}</span>
                 </div>
                 <div className="sequence-error">
-                    <p>Reihenfolge-Fragen benötigen die Antwortinhalte.</p>
-                    <p>Bitte verwenden Sie den Übungsmodus für Reihenfolge-Fragen.</p>
+                    <p>{t("sequenceClient.errors.needsContents")}</p>
+                    <p>{t("sequenceClient.errors.usePracticeMode")}</p>
                 </div>
             </div>
         );
@@ -63,7 +65,7 @@ export const SequenceClient = ({question, onSubmit}) => {
             <div className="sequence-client">
                 <div className="sequence-instructions">
                     <FontAwesomeIcon icon={faSort} className="sequence-icon" />
-                    <span>Keine Antworten verfügbar</span>
+                    <span>{t("sequenceClient.noAnswers")}</span>
                 </div>
             </div>
         );
@@ -73,9 +75,9 @@ export const SequenceClient = ({question, onSubmit}) => {
         <div className="sequence-client">
             <div className="sequence-instructions">
                 <FontAwesomeIcon icon={faSort} className="sequence-icon" />
-                <span>Ziehen Sie die Antworten in die richtige Reihenfolge</span>
+                <span>{t("sequenceClient.instructions")}</span>
             </div>
-            
+
             <Reorder.Group
                 as="div"
                 className="sequence-list"
@@ -89,7 +91,7 @@ export const SequenceClient = ({question, onSubmit}) => {
                             value={answer}
                             style={{listStyleType: "none"}}
                         >
-                            <motion.div 
+                            <motion.div
                                 className="sequence-item"
                                 initial={{opacity: 0, y: -20}}
                                 animate={{opacity: 1, y: 0}}
@@ -102,7 +104,11 @@ export const SequenceClient = ({question, onSubmit}) => {
                                 <div className="sequence-number">{index + 1}</div>
                                 <div className="sequence-content">
                                     {answer.type === "image" ? (
-                                        <img src={answer.content} alt={`Answer ${index + 1}`} className="sequence-answer-image" />
+                                        <img
+                                            src={answer.content}
+                                            alt={t("sequenceClient.answerAlt", { n: index + 1 })}
+                                            className="sequence-answer-image"
+                                        />
                                     ) : (
                                         <span className="sequence-answer-text">{answer.content}</span>
                                     )}
@@ -114,10 +120,11 @@ export const SequenceClient = ({question, onSubmit}) => {
             </Reorder.Group>
 
             <div className="submit-container">
-                <button 
+                <button
                     onClick={handleSubmit}
                     disabled={!canSubmit}
                     className={`submit-sequence ${canSubmit ? "submit-shown" : ""}`}
+                    aria-label={t("sequenceClient.submit")}
                 >
                     <FontAwesomeIcon icon={faPaperPlane} />
                 </button>

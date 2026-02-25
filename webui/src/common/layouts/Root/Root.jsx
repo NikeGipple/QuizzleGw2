@@ -4,6 +4,7 @@ import Background from "@/common/components/Background";
 import {useEffect, useState} from "react";
 import {Toaster} from "react-hot-toast";
 import {socket, getSessionManager, getSessionState} from "@/common/utils/SocketUtil.js";
+import LanguageSwitcher from "@/common/components/LanguageSwitcher/LanguageSwitcher.jsx";
 
 export const Root = () => {
     const [circlePosition, setCirclePosition] = useState(["-25rem 0 0 -25rem", "-8rem 0 0 -8rem"]);
@@ -47,6 +48,7 @@ export const Root = () => {
         <>
             <Background positionCircle={circlePosition}/>
             <Toaster toastOptions={{position: "bottom-right"}} />
+            <LanguageSwitcher />
             <main>
                 <Outlet context={{setCirclePosition}}/>
             </main>

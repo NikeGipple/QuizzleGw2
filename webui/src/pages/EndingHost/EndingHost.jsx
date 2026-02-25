@@ -11,6 +11,7 @@ import {useSoundManager} from "@/common/utils/SoundManager.js";
 import SoundRenderer from "@/common/components/SoundRenderer";
 import {exportLiveQuizToExcel} from "@/common/utils/ExcelExport";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export const EndingHost = () => {
     const {isLoaded, scoreboard} = useContext(QuizContext);
@@ -19,6 +20,7 @@ export const EndingHost = () => {
     const [activeView, setActiveView] = useState('scoreboard');
     const [analyticsData, setAnalyticsData] = useState(null);
     const [hasPlayedEndingSound, setHasPlayedEndingSound] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (!isLoaded) {
@@ -46,7 +48,7 @@ export const EndingHost = () => {
 
     const handleExportToExcel = () => {
         if (!analyticsData) {
-            toast.error('Keine Analytics-Daten zum Exportieren verfügbar');
+            toast.error(t("endingHost.toast.noAnalyticsToExport"));
             return;
         }
 
@@ -54,16 +56,16 @@ export const EndingHost = () => {
             const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
             const quizName = `LiveQuiz_${timestamp}`;
             const filename = exportLiveQuizToExcel(analyticsData, quizName);
-            toast.success(`Analytics exportiert: ${filename}`);
+            toast.success(t("endingHost.toast.exportSuccess", { filename }));
         } catch (error) {
             console.error('Error exporting to Excel:', error);
-            toast.error('Fehler beim Exportieren der Daten');
+            toast.error(t("endingHost.toast.exportError"));
         }
     };
 
     const viewTabs = [
-        {id: 'scoreboard', title: 'Ergebnisse', icon: faTrophy},
-        {id: 'analytics', title: 'Analytics', icon: faChartBar}
+        {id: 'scoreboard', title: t("endingHost.tabs.results"), icon: faTrophy},
+        {id: 'analytics', title: t("endingHost.tabs.analytics"), icon: faChartBar}
     ];
 
     return (
@@ -86,7 +88,7 @@ export const EndingHost = () => {
             {activeView === 'analytics' && analyticsData && (
                 <div className="export-button-container">
                     <Button
-                        text="Als Excel herunterladen"
+                        text={t("endingHost.actions.downloadExcel")}
                         icon={faDownload}
                         onClick={handleExportToExcel}
                         type="compact green"
@@ -97,8 +99,7 @@ export const EndingHost = () => {
             {activeView === 'scoreboard' && (
                 <Scoreboard
                     isEnd
-                    nextQuestion={() => {
-                    }}
+                    nextQuestion={() => {}}
                     scoreboard={Object.values(scoreboard?.scoreboard || {})}
                 />
             )}
@@ -115,8 +116,7 @@ export const EndingHost = () => {
 
             {activeView === 'analytics' && !analyticsData && (
                 <div className="no-analytics">
-                    <p>Keine Analytics-Daten verfügbar. Bitte stellen Sie sicher, dass das Quiz ordnungsgemäß beendet
-                        wurde.</p>
+                    <p>{t("endingHost.noAnalytics")}</p>
                 </div>
             )}
         </div>

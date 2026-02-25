@@ -2,6 +2,7 @@ import "./styles.sass";
 import {QuizContext} from "@/common/contexts/Quiz";
 import {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {socket, addReconnectionCallback, removeReconnectionCallback, clearCurrentSession, getSessionManager, getSessionState} from "@/common/utils/SocketUtil.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faCheckCircle, faMinus, faPaperPlane, faX, faWifi, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
@@ -14,11 +15,13 @@ import {QUESTION_TYPES} from "@/common/constants/QuestionTypes.js";
 import {useSoundManager} from "@/common/utils/SoundManager.js";
 import toast from "react-hot-toast";
 
+
 export const InGameClient = () => {
     const navigate = useNavigate();
     const {username, roomCode, practiceUserData} = useContext(QuizContext);
     const {practiceCode} = useParams();
     const soundManager = useSoundManager();
+    const { t } = useTranslation();
 
     const [isPracticeMode, setIsPracticeMode] = useState(false);
     const [practiceQuiz, setPracticeQuiz] = useState(null);
@@ -43,7 +46,7 @@ export const InGameClient = () => {
             setIsPracticeMode(true);
 
             if (!practiceUserData || !practiceUserData.name) {
-                toast.error('Bitte wähle zuerst einen Namen und Charakter.');
+                toast.error(t("inGameClient.practice.chooseNameCharacterFirst"));
                 navigate(`/?code=${practiceCode}`);
                 return;
             }
@@ -124,17 +127,13 @@ export const InGameClient = () => {
 
         const hostDisconnected = () => {
             clearCurrentSession();
-            toast.error("Der Host hat das Spiel verlassen.", {
-                duration: 3000
-            });
+            toast.error(t("inGameClient.toast.hostLeft"), { duration: 3000 });
             setTimeout(() => navigate("/"), 1000);
         }
 
         const kickedFromRoom = () => {
             clearCurrentSession();
-            toast.error("Du wurdest aus dem Raum entfernt.", {
-                duration: 3000
-            });
+            toast.error(t("inGameClient.toast.kicked"), { duration: 3000 });
             setTimeout(() => navigate("/"), 1000);
         }
 
@@ -153,7 +152,7 @@ export const InGameClient = () => {
         const handleReconnection = (success, error, gameState) => {
             if (success) {
                 setIsReconnecting(false);
-                toast.success("Erfolgreich wieder verbunden!", { duration: 3000 });
+                toast.success(t("inGameClient.connection.reconnected"), { duration: 3000 });
                 
                 if (gameState) {
                     if (gameState.playerPoints !== undefined) {
@@ -171,17 +170,18 @@ export const InGameClient = () => {
                     
                     clearCurrentSession();
                     
-                    let message = "Sitzung abgelaufen. Zurück zur Startseite...";
-                    if (error === 'Kicked from room') {
-                        message = "Du wurdest aus dem Raum entfernt. Zurück zur Startseite...";
-                    } else if (error === 'Host disconnected') {
-                        message = "Der Host hat das Spiel verlassen. Zurück zur Startseite...";
+                    let message = t("inGameClient.session.expiredBackHome");
+
+                    if (error === "Kicked from room") {
+                    message = t("inGameClient.session.kickedBackHome");
+                    } else if (error === "Host disconnected") {
+                    message = t("inGameClient.session.hostLeftBackHome");
                     }
-                    
+
                     toast.error(message, { duration: 2000 });
                     setTimeout(() => navigate("/"), 500);
                 } else {
-                    toast.error("Verbindung unterbrochen. Versuche wieder zu verbinden...", { duration: 2000 });
+                    toast.error(t("inGameClient.connection.interruptedReconnecting"), { duration: 2000 });
                 }
             }
         };
@@ -239,11 +239,11 @@ export const InGameClient = () => {
         } catch (error) {
             console.error('Error loading practice quiz:', error);
             if (error.message && error.message.includes('410')) {
-                toast.error('Dieses Übungsquiz ist abgelaufen.');
+                toast.error(t("inGameClient.practice.load.expired"));
             } else if (error.message && error.message.includes('404')) {
-                toast.error('Übungsquiz nicht gefunden.');
+                toast.error(t("inGameClient.practice.load.notFound"));
             } else {
-                toast.error('Fehler beim Laden des Übungsquiz.');
+                toast.error(t("inGameClient.practice.load.failed"));
             }
             navigate('/');
         }
@@ -266,7 +266,7 @@ export const InGameClient = () => {
                 attemptId,
                 questionIndex: currentQuestionIndex,
                 answer: answerToSubmit,
-                name: practiceUserData?.name || username || 'Anonymous',
+                name: practiceUserData?.name || username || t("common.anonymous"),
                 character: practiceUserData?.character || 'wizard'
             });
 
@@ -286,7 +286,7 @@ export const InGameClient = () => {
             }
         } catch (error) {
             console.error('Error submitting practice answer:', error);
-            toast.error('Fehler beim Senden der Antwort.');
+            toast.error(t("inGameClient.practice.submit.failed"));
         }
     };
 
@@ -347,7 +347,7 @@ export const InGameClient = () => {
                             {question.answers.map((answer, index) => (
                                 <div key={index} className="ingame-answer" onClick={() => submitAnswer([index])}>
                                     {answer.type === "image" ? (
-                                        <img src={answer.content} alt={`Answer ${index + 1}`} className="practice-answer-image" />
+                                        <img src={answer.content} alt={t("inGameClient.answerAlt", { n: index + 1 })} className="practice-answer-image" />
                                     ) : (
                                         <span className="practice-answer-text">{answer.content}</span>
                                     )}
@@ -376,7 +376,7 @@ export const InGameClient = () => {
                                      className={`ingame-answer ${selection[index] ? 'ingame-answer-selected' : ''}`}
                                      onClick={() => handleMultipleChoiceSelection(index)}>
                                     {answer.type === "image" ? (
-                                        <img src={answer.content} alt={`Answer ${index + 1}`} className="practice-answer-image" />
+                                        <img src={answer.content} alt={t("inGameClient.answerAlt", { n: index + 1 })} className="practice-answer-image" />
                                     ) : (
                                         <span className="practice-answer-text">{answer.content}</span>
                                     )}
@@ -410,7 +410,7 @@ export const InGameClient = () => {
                 );
                 
             default:
-                return <div>Unbekannter Fragetyp: {question.type}</div>;
+                return <div>{t("inGameClient.errors.unknownQuestionType", { type: question.type })}</div>;
         }
     };
 
@@ -420,7 +420,7 @@ export const InGameClient = () => {
         }
 
         if (!answersReady) {
-            toast.error("Antworten sind noch nicht bereit!");
+            toast.error(t("inGameClient.errors.answersNotReady"));
             return;
         }
 
@@ -430,7 +430,7 @@ export const InGameClient = () => {
             setLastQuestionType(QUESTION_TYPES.TEXT);
             socket.emit("SUBMIT_ANSWER", {answers}, (response) => {
                 if (!response.success) {
-                    toast.error(response.error || "Fehler beim Senden der Antwort");
+                    toast.error(response.error || t("inGameClient.errors.sendAnswerFailed"));
                     return;
                 }
                 setCurrentQuestion(null);
@@ -564,7 +564,7 @@ export const InGameClient = () => {
                         icon={isConnected ? faWifi : faExclamationTriangle} 
                         className={`connection-icon ${isReconnecting ? 'reconnecting' : 'disconnected'}`}
                     />
-                    <span>{isReconnecting ? 'Verbinde wieder...' : 'Verbindung verloren'}</span>
+                    <span>{isReconnecting ? t("inGameClient.connection.reconnecting") : t("inGameClient.connection.lost")}</span>
                 </div>
             )}
             
@@ -576,7 +576,7 @@ export const InGameClient = () => {
                                 <div className="progress-bar">
                                     <div className="progress-fill" style={{width: `${((currentQuestionIndex + 1) / practiceQuiz.questions.length) * 100}%`}}></div>
                                 </div>
-                                <span>Frage {currentQuestionIndex + 1} von {practiceQuiz.questions.length}</span>
+                                <span>{t("inGameClient.practice.progress", { current: currentQuestionIndex + 1, total: practiceQuiz.questions.length })}</span>
                             </div>
                         )}
                         <h2>{getCurrentQuestion().title}</h2>
@@ -641,8 +641,9 @@ export const InGameClient = () => {
                                     }
                                 />
                                 <h2>
-                                    {practiceQuestionResult?.result === 'correct' ? "Richtig!" :
-                                     practiceQuestionResult?.result === 'partial' ? "Teilweise richtig!" : "Weiter so!"}
+                                    {practiceQuestionResult?.result === 'correct' ? t("inGameClient.practice.result.correct") :
+                                    practiceQuestionResult?.result === 'partial' ? t("inGameClient.practice.result.partial") :
+                                    t("inGameClient.practice.result.keepGoing")}
                                 </h2>
                                 <button className="practice-next-button" onClick={nextPracticeQuestion}>
                                     Nächste Frage
@@ -654,9 +655,9 @@ export const InGameClient = () => {
                             <FontAwesomeIcon icon={getCorrectStatus(selection, answers) === 1 ? faCheck : getCorrectStatus(selection, answers) === 0 ? faMinus : faX}
                                            className={getCorrectStatus(selection, answers) === 1 ? " ingame-icon-correct" : getCorrectStatus(selection, answers) === 0 ? " ingame-icon-partial" : " ingame-icon-wrong"}/>
                             <h2>
-                                {getCorrectStatus(selection, answers) === 1 && "Richtig!"}
-                                {getCorrectStatus(selection, answers) === 0 && "Teilweise richtig!"}
-                                {getCorrectStatus(selection, answers) === -1 && "Falsch!"}
+                                {getCorrectStatus(selection, answers) === 1 && t("inGameClient.results.correct")}
+                                {getCorrectStatus(selection, answers) === 0 && t("inGameClient.results.partial")}
+                                {getCorrectStatus(selection, answers) === -1 && t("inGameClient.results.wrong")}
                             </h2>
                         </>
                     )}
@@ -664,7 +665,7 @@ export const InGameClient = () => {
             )}
 
             <div className="ingame-footer">
-                <h2>{isPracticeMode ? (practiceUserData?.name || 'Anonymous') : username}</h2>
+                <h2>{isPracticeMode ? (practiceUserData?.name || t("common.anonymous")) : (username || t("common.anonymous"))}</h2>
                 {!isPracticeMode && (
                     <div className="footer-points">
                         <h2>{points}</h2>

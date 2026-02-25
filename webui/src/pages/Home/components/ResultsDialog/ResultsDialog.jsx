@@ -3,10 +3,12 @@ import PasswordDialog from "@/common/components/PasswordDialog";
 import {postRequest} from "@/common/utils/RequestUtil.js";
 import {BrandingContext} from "@/common/contexts/Branding";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export const ResultsDialog = ({isOpen, onClose, practiceCode, onSuccess}) => {
     const [isLoading, setIsLoading] = useState(false);
     const {passwordProtected} = useContext(BrandingContext);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (isOpen && !passwordProtected) {
@@ -23,9 +25,9 @@ export const ResultsDialog = ({isOpen, onClose, practiceCode, onSuccess}) => {
         } catch (error) {
             console.error('Error loading results:', error);
             if (error.message && error.message.includes('404')) {
-                toast.error('Übungsquiz nicht gefunden');
+                toast.error(t("home.resultsDialog.errors.practiceNotFound"));
             } else {
-                toast.error('Fehler beim Laden der Ergebnisse');
+                toast.error(t("home.resultsDialog.errors.loadResultsFailed"));
             }
         } finally {
             setIsLoading(false);

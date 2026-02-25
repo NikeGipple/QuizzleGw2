@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '../Button';
 import './styles.sass';
+import { useTranslation } from "react-i18next";
 
 const Dialog = ({
                     isOpen,
@@ -10,8 +11,8 @@ const Dialog = ({
                     children,
                     onConfirm,
                     onCancel,
-                    confirmText = "OK",
-                    cancelText = "Abbrechen",
+                    confirmText,
+                    cancelText,
                     showCancelButton = true,
                     className = ""
                 }) => {
@@ -30,54 +31,58 @@ const Dialog = ({
         onClose?.();
     };
 
+    const { t } = useTranslation();
+    const confirmLabel = confirmText ?? t("common.ok");
+    const cancelLabel = cancelText ?? t("common.cancel");
+
     return (
         <AnimatePresence>
             {isOpen && (
-                <motion.div 
-                    className="dialog-overlay" 
-                    onClick={handleOverlayClick}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                <motion.div
+                className="dialog-overlay"
+                onClick={handleOverlayClick}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
                 >
-                    <motion.div 
-                        className={`dialog ${className}`}
-                        initial={{ opacity: 0, scale: 0.9, y: -20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        {title && (
-                            <div className="dialog-header">
-                                <h3 className="dialog-title">{title}</h3>
-                            </div>
-                        )}
+                <motion.div
+                    className={`dialog ${className}`}
+                    initial={{ opacity: 0, scale: 0.9, y: -20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {title && (
+                    <div className="dialog-header">
+                        <h3 className="dialog-title">{title}</h3>
+                    </div>
+                    )}
 
-                        <div className="dialog-content">
-                            {children}
-                        </div>
+                    <div className="dialog-content">
+                    {children}
+                    </div>
 
-                        {(showCancelButton || confirmText) && (
-                            <div className="dialog-actions">
-                                {showCancelButton && (
-                                    <Button
-                                        onClick={handleCancel}
-                                        type="secondary compact"
-                                        text={cancelText}
-                                    />
-                                )}
-                                {confirmText && (
-                                    <Button
-                                        onClick={handleConfirm}
-                                        type="primary compact"
-                                        text={confirmText}
-                                    />
-                                )}
-                            </div>
+                    {(showCancelButton || confirmText !== null) && (
+                    <div className="dialog-actions">
+                        {showCancelButton && (
+                        <Button
+                            onClick={handleCancel}
+                            type="secondary compact"
+                            text={cancelLabel}
+                        />
                         )}
-                    </motion.div>
+                        {confirmText !== null && (
+                        <Button
+                            onClick={handleConfirm}
+                            type="primary compact"
+                            text={confirmLabel}
+                        />
+                        )}
+                    </div>
+                    )}
+                </motion.div>
                 </motion.div>
             )}
         </AnimatePresence>

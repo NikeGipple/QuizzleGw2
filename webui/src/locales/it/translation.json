@@ -1,0 +1,472 @@
+{
+    "common": {
+        "cancel": "Annulla",
+        "confirm": "Conferma",
+        "close": "Chiudi",
+        "ok": "OK",
+        "select": "Seleziona...",
+        "anonymous": "Anonimo"
+    },
+    "analyticsTabs": {
+        "overview": "Panoramica",
+        "students": "Studenti",
+        "questions": "Domande",
+        "recommendations": "Suggerimenti"
+    },
+    "classOverview": {
+        "stats": {
+        "participants": "Partecipanti",
+        "questions": "Domande",
+        "avgAccuracy": "Accuratezza media",
+        "hardQuestions": "Domande difficili"
+        },
+        "difficulty": {
+        "title": "Distribuzione difficoltà",
+        "easy": "Facile",
+        "medium": "Medio",
+        "hard": "Difficile",
+        "questionsCount_one": "{{count}} domanda",
+        "questionsCount_other": "{{count}} domande"
+        },
+        "summary": {
+        "needsReview_one": "{{count}} domanda richiede ripasso",
+        "needsReview_other": "{{count}} domande richiedono ripasso",
+        "allGood": "Tutte le domande sono state comprese bene"
+        },
+        "live": {
+        "avgPoints": "Punti medi: {{points}}"
+        }
+    },
+        "passwordDialog": {
+        "title": "Password insegnante richiesta",
+        "text": "Inserisci la <1>password insegnante</1>.",
+        "input": {
+        "placeholder": "Inserisci password"
+        },
+        "validation": {
+        "required": "La password è obbligatoria"
+        },
+        "actions": {
+        "login": "Accedi"
+        }
+    },
+    "questionAnalytics": {
+        "difficulty": {
+        "easy": "Facile",
+        "medium": "Medio",
+        "hard": "Difficile",
+        "unknown": "Sconosciuta"
+        },
+        "questionNumber": "Domanda {{n}}",
+        "hardQuestionsTitle": "Domande difficili ({{count}})",
+        "reviewItem": "Domanda {{n}}: {{title}}"
+    },
+    "recommendations": {
+        "studentsNeedHelp_one": "{{count}} studente ha bisogno di aiuto",
+        "studentsNeedHelp_other": "{{count}} studenti hanno bisogno di aiuto",
+
+        "hardQuestions_one": "{{count}} domanda difficile",
+        "hardQuestions_other": "{{count}} domande difficili",
+
+        "lowClassPerformance": {
+        "title": "Prestazione della classe bassa: {{pct}}%",
+        "action": "Consigliato ripassare i contenuti"
+        },
+        "goodClassPerformance": {
+        "title": "Buona prestazione della classe: {{pct}}%",
+        "action": "La classe è pronta per nuovi argomenti"
+        },
+
+        "labels": {
+        "students": "Studenti:",
+        "questions": "Domande:"
+        },
+
+        "studentItem": "{{name}} ({{pct}}%)",
+        "questionItem": "Domanda {{n}}: {{pct}}%",
+
+        "none": {
+        "title": "Nessun problema rilevato",
+        "subtitle": "La classe mostra buone prestazioni."
+        }
+    },
+    "studentAnalytics": {
+        "columns": {
+        "student": "Studente",
+        "accuracy": "Accuratezza",
+        "correct": "Corrette",
+        "incorrect": "Sbagliate",
+        "points": "Punti",
+        "status": "Stato"
+        },
+        "performance": {
+        "excellent": "Ottimo",
+        "ok": "OK",
+        "help": "Aiuto"
+        },
+        "needsHelpTitle_one": "Ha bisogno di aiuto ({{count}})",
+        "needsHelpTitle_other": "Hanno bisogno di aiuto ({{count}})"
+    },
+    "endingHost": {
+        "tabs": {
+        "results": "Risultati",
+        "analytics": "Statistiche"
+        },
+        "actions": {
+        "downloadExcel": "Scarica come Excel"
+        },
+        "toast": {
+        "noAnalyticsToExport": "Nessun dato statistico disponibile per l’esportazione",
+        "exportSuccess": "Statistiche esportate: {{filename}}",
+        "exportError": "Errore durante l’esportazione dei dati"
+        },
+        "noAnalytics": "Nessun dato statistico disponibile. Assicurati che il quiz sia stato terminato correttamente."
+    },
+    "home": {
+        "legal": {
+            "imprint": "Note legali",
+            "privacy": "Privacy"
+        },
+        "practice": {
+            "or": "oppure",
+            "viewResults": "Vedi risultati"
+        },
+        "actions": {
+            "createQuiz": "Crea quiz",
+            "hostRoom": "Ospita stanza"
+        },
+        "errors": {
+            "practiceNotFound": "Quiz di allenamento non trovato",
+            "checkPracticeFailed": "Errore durante la verifica del quiz di allenamento",
+            "roomNotFound": "Stanza non trovata",
+            "connectionError": "Errore di connessione",
+            "invalidCode": "Codice non valido",
+            "joinFailed": "Errore durante l’accesso"
+        },
+        "characterSelection": {
+            "title": "Scegli il tuo personaggio",
+            "namePlaceholder": "Il tuo nome",
+            "actions": {
+                "join": "Entra",
+                "joining": "Accesso...",
+                "startQuiz": "Avvia quiz"
+            }
+        },
+        "codeInput": {
+            "title": "Inserisci codice",
+            "or": "oppure",
+            "scan": "Scansiona codice"
+        },
+        "resultsDialog": {
+            "errors": {
+                "practiceNotFound": "Quiz di allenamento non trovato",
+                "loadResultsFailed": "Errore durante il caricamento dei risultati"
+            }
+        }
+    },
+    "host": {
+        "joinInstruction": "Collegati tramite <1>{{host}}</1> con il codice:",
+        "actions": {
+            "start": "Avvia"
+        },
+        "waitingForPlayers": "In attesa di giocatori...",
+        "toast": {
+            "roomLocked": "Stanza bloccata",
+            "roomUnlocked": "Stanza sbloccata"
+        }
+    },
+    "inGameClient": {
+        "connection": {
+            "reconnecting": "Riconnessione in corso...",
+            "lost": "Connessione persa",
+            "reconnected": "Riconnesso con successo!",
+            "interruptedReconnecting": "Connessione interrotta. Tentativo di riconnessione..."
+        },
+        "toast": {
+            "hostLeft": "L’host ha lasciato la partita.",
+            "kicked": "Sei stato rimosso dalla stanza."
+        },
+        "session": {
+            "expiredBackHome": "Sessione scaduta. Ritorno alla home...",
+            "kickedBackHome": "Sei stato rimosso dalla stanza. Ritorno alla home...",
+            "hostLeftBackHome": "L’host ha lasciato la partita. Ritorno alla home..."
+        },
+        "errors": {
+            "unknownQuestionType": "Tipo di domanda sconosciuto: {{type}}",
+            "answersNotReady": "Le risposte non sono ancora pronte!",
+            "sendAnswerFailed": "Errore durante l’invio della risposta"
+        },
+        "answerAlt": "Risposta {{n}}",
+        "results": {
+            "correct": "Corretto!",
+            "partial": "Parzialmente corretto!",
+            "wrong": "Sbagliato!"
+        },
+        "practice": {
+            "chooseNameCharacterFirst": "Per favore scegli prima un nome e un personaggio.",
+            "progress": "Domanda {{current}} di {{total}}",
+            "load": {
+                "expired": "Questo quiz di allenamento è scaduto.",
+                "notFound": "Quiz di allenamento non trovato.",
+                "failed": "Errore durante il caricamento del quiz di allenamento."
+            },
+            "submit": {
+                "failed": "Errore durante l’invio della risposta."
+            },
+            "completed": {
+                "title": "Quiz completato! 🎉",
+                "backHome": "Torna alla home"
+            },
+            "nextQuestion": "Domanda successiva",
+            "result": {
+                "correct": "Corretto!",
+                "partial": "Parzialmente corretto!",
+                "keepGoing": "Continua così!"
+            }
+        }
+    },
+    "sequenceClient": {
+        "waitingForQuestion": "In attesa della domanda...",
+        "loadingTask": "Caricamento dell’attività di ordinamento...",
+        "noAnswers": "Nessuna risposta disponibile",
+        "instructions": "Trascina le risposte nell’ordine corretto",
+        "submit": "Invia risposta",
+        "answerAlt": "Risposta {{n}}",
+        "errors": {
+            "needsContents": "Le domande di sequenza richiedono il contenuto delle risposte.",
+            "usePracticeMode": "Usa la modalità allenamento per le domande di sequenza."
+            }
+    },
+    "textInputClient": {
+        "placeholder": "Inserisci la tua risposta...",
+        "submit": "Invia risposta"
+    },
+    "trueFalseClient": {
+        "true": "Vero",
+        "false": "Falso"
+    },
+    "inGameHost": {
+        "actions": {
+        "skipQuestion": "Salta domanda"
+        },
+        "errors": {
+            "skipFailed": "Errore durante il salto della domanda",
+            "showQuestionFailed": "Errore durante la visualizzazione della domanda"
+        },
+        "toast": {
+            "playerLeft": "{{name}} ha lasciato la partita"
+        },
+        "status": {
+            "playersTyping": "I giocatori stanno inserendo le risposte...",
+            "playersSorting": "I giocatori stanno ordinando le risposte..."
+        }
+    },
+    "answerResults": {
+        "actions": {
+          "showScoreboard": "Mostra classifica"
+        },
+        "titles": {
+            "correctAnswers": "Risposte corrette",
+            "correctOrder": "Ordine corretto",
+            "answers": "Risposte"
+        }
+    },
+    "countdownTimer": {
+        "hurry": "Presto!",
+        "time": "Tempo"
+    },
+    "doublePoints": {
+        "title": "Punti doppi!",
+        "subtitle": "Questa domanda vale il doppio dei punti!"
+    },
+    "scoreboard": {
+        "actions": {
+            "next": "Avanti",
+            "home": "Home"
+        },
+        "title": {
+            "live": "Classifica",
+            "final": "Risultato finale"
+        }
+    },
+    "practiceResults": {
+        "title": "Risultati quiz di allenamento",
+        "codeLabel": "Codice:",
+        "loading": "Caricamento risultati...",
+        "noResults": {
+            "title": "Nessun risultato trovato"
+        },
+        "toast": {
+            "invalidPassword": "Password non valida.",
+            "practiceNotFound": "Quiz di allenamento non trovato.",
+            "loadFailed": "Errore durante il caricamento dei risultati.",
+            "noDataToExport": "Nessun dato disponibile per l’esportazione",
+            "exportSuccess": "Statistiche esportate: {{filename}}",
+            "exportError": "Errore durante l’esportazione dei dati"
+        },
+        "tabs": {
+            "analytics": "Statistiche",
+            "details": "Dettagli"
+        },
+        "stats": {
+            "attempts": "Tentativi",
+            "average": "Media",
+            "bestScore": "Miglior punteggio",
+            "days": "giorni",
+            "remaining": "Rimanenti"
+        },
+        "students": {
+            "grouped": "Raggruppati per studente",
+            "labels": {
+                "attempts": "Tentativi:",
+                "best": "Migliore:",
+                "average": "Media:"
+            }
+        },
+        "actions": {
+            "backHome": "Torna alla home",
+            "downloadExcel": "Scarica come Excel"
+        },
+        "studentDetails": {
+            "title": "Dettaglio: {{name}}",
+            "selectAttempt": "Seleziona tentativo:",
+            "attempt": "Tentativo {{n}}",
+            "questionNumber": "Domanda {{n}}:",
+            "loadingQuestions": "Caricamento domande..."
+        },
+        "answerLabels": {
+            "answer": "Risposta:",
+            "correct": "Corretta:"
+        },
+        "sequence": {
+            "yourOrder": "Il tuo ordine:",
+            "correctOrder": "Ordine corretto:"
+        },
+        "answerFallback": "Risposta {{n}}"
+    },
+    "quizCreator": {
+        "titlePlaceholder": "Inserisci titolo del quiz",
+        "validation": {
+            "titleRequired": "Il titolo del quiz non può essere vuoto."
+        },
+        "tooltips": {
+            "import": "Importa quiz da file",
+            "download": "Scarica quiz come file",
+            "passwordRequired": "Password richiesta",
+            "uploadLive": "Carica come quiz live",
+            "publishPractice": "Pubblica come quiz di allenamento",
+            "reset": "Reimposta quiz"
+        },
+        "toast": {
+            "importSuccess": "Quiz importato con successo!",
+            "invalidFileFormat": "Formato file non valido.",
+            "practiceCreated": "Quiz di allenamento creato con successo!",
+            "practiceCode": "Codice allenamento: {{code}}",
+            "practiceCreateFailed": "Errore durante la creazione del quiz di allenamento.",
+            "uploadSuccess": "Quiz caricato con successo.",
+            "quizId": "ID quiz: {{id}}",
+            "uploadFailed": "Errore durante il caricamento del quiz.",
+            "localStorageExceeded": "Il tuo quiz supera la capacità di archiviazione locale. Caricalo per evitare di perderlo quando lasci la pagina."
+        },
+        "errors": {
+            "serverStorageExceeded": "Il tuo quiz supera la capacità di archiviazione del server. Scaricalo in locale."
+        },
+        "answer": {
+            "placeholder": "Risposta {{n}}"
+        },
+        "sequenceAnswers": {
+            "title": "Risposte",
+            "hint": "Ordina le risposte nell’ordine corretto.",
+            "addPlaceholder": "Aggiungi una nuova risposta...",
+            "emptyHint": "Aggiungi almeno due risposte da ordinare correttamente",
+            "add": "Aggiungi risposta",
+            "remove": "Rimuovi risposta"
+        },
+        "textAnswers": {
+            "title": "Risposte corrette",
+            "hint": "Maiuscole/minuscole vengono ignorate",
+            "addPlaceholder": "Aggiungi una nuova risposta...",
+            "emptyHint": "Aggiungi almeno una risposta accettata",
+            "add": "Aggiungi risposta",
+            "remove": "Rimuovi risposta"
+        },
+        "questionPreview": {
+            "noTitle": "Nessun titolo domanda"
+        },
+        "questionSettings": {
+            "title": "Impostazioni domanda",
+            "timer": {
+                "label": "Limite di tempo",
+                "placeholder": "Seleziona timer...",
+                "options": {
+                "default": {
+                    "label": "Standard (60s)",
+                    "description": "Tempo standard per le domande"
+                },
+                "s30": {
+                    "label": "30 secondi",
+                    "description": "Domande veloci"
+                },
+                "s120": {
+                    "label": "2 minuti",
+                    "description": "Più tempo per pensare"
+                },
+                "unlimited": {
+                    "label": "Illimitato",
+                    "description": "Nessun limite di tempo"
+                }
+                }
+            },
+            "points": {
+                "label": "Punteggio",
+                "placeholder": "Seleziona punteggio...",
+                "options": {
+                "standard": {
+                    "label": "Standard",
+                    "description": "Distribuzione punti normale"
+                },
+                "none": {
+                    "label": "Nessun punto",
+                    "description": "Per questa domanda non vengono assegnati punti"
+                },
+                "double": {
+                    "label": "Punti doppi",
+                    "description": "Questa domanda vale doppio"
+                }
+                }
+            }
+        }
+    },
+    "questionEditor": {
+        "titlePlaceholder": "Inserisci titolo della domanda"
+    },
+    "quizLoader": {
+        "quizIdPlaceholder": "ID quiz (es. JWTIOI)",
+        "or": "oppure",
+        "uploadFile": "Carica file",
+        "dragDrop": "Rilascia qui il file",
+        "toast": {
+        "loadedSuccess": "Quiz caricato con successo!",
+        "invalidFileFormat": "Formato file non valido.",
+        "idNotFound": "ID quiz non trovato. Controlla di aver inserito l’ID corretto e che il quiz sia sull’istanza di {{name}}."
+        }
+    },
+    "questionTypes": {
+        "multipleChoice": {
+        "name": "Scelta multipla",
+        "description": "I giocatori scelgono tra risposte predefinite"
+        },
+        "trueFalse": {
+        "name": "Vero/Falso",
+        "description": "I giocatori scelgono tra vero e falso"
+        },
+        "text": {
+        "name": "Risposta testuale",
+        "description": "I giocatori inseriscono una risposta in testo"
+        },
+        "sequence": {
+        "name": "Sequenza",
+        "description": "I giocatori ordinano le risposte nell’ordine corretto"
+        }
+    }
+}

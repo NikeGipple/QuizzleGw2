@@ -1,4 +1,5 @@
 import {useContext, useEffect, useRef, useState} from "react";
+import { useTranslation } from "react-i18next";
 import {socket} from "@/common/utils/SocketUtil.js";
 import {QuizContext} from "@/common/contexts/Quiz";
 import toast from "react-hot-toast";
@@ -17,6 +18,7 @@ import SoundRenderer from "@/common/components/SoundRenderer";
 import {QUESTION_TYPES} from "@/common/constants/QuestionTypes.js";
 
 export const InGameHost = () => {
+    const { t } = useTranslation();
     const {isLoaded, pullNextQuestion, scoreboard, setScoreboard} = useContext(QuizContext);
     const navigate = useNavigate();
     const soundManager = useSoundManager();
@@ -34,7 +36,7 @@ export const InGameHost = () => {
             setTimerActive(false);
             socket.emit("SKIP_QUESTION", null, (data) => {
                 if (!data) {
-                    toast.error("Fehler beim Überspringen der Frage");
+                    toast.error(t("inGameHost.errors.skipFailed"));
                     return;
                 }
                 setScoreboard(data.scoreboard);
@@ -89,14 +91,14 @@ export const InGameHost = () => {
                     setShowDoublePointsAnimation(false);
 
                     socket.emit("SHOW_QUESTION", newQuestionCopy, (success) => {
-                        if (!success) toast.error("Fehler beim Anzeigen der Frage");
+                        if (!success) toast.error(t("inGameHost.errors.showQuestionFailed"));
                     });
                     
                     startQuestionSequence();
                 }, 3000);
             } else {
                 socket.emit("SHOW_QUESTION", newQuestionCopy, (success) => {
-                    if (!success) toast.error("Fehler beim Anzeigen der Frage");
+                    if (!success) toast.error(t("inGameHost.errors.showQuestionFailed"));
                 });
                 
                 startQuestionSequence();
@@ -147,7 +149,7 @@ export const InGameHost = () => {
         inGameMusicRef.current = soundManager.playAmbient('INGAME');
 
         socket.on("PLAYER_LEFT", (player) => {
-            toast.error(`${player.name} hat das Spiel verlassen`);
+            toast.error(t("inGameHost.toast.playerLeft", { name: player.name }));
             soundManager.playFeedback('PLAYER_LEFT');
         });
 
@@ -215,7 +217,7 @@ export const InGameHost = () => {
                 <div className="ingame-question">
                     {Object.keys(currentQuestion).length !== 0 && <div className="question-content-container">
                         <div className="top-area">
-                            <Button onClick={skipQuestion} text="Frage überspringen"
+                            <Button onClick={skipQuestion} text={t("inGameHost.actions.skipQuestion")}
                                     padding="1rem 1.5rem" icon={faForward} />
                         </div>
                         
@@ -232,7 +234,7 @@ export const InGameHost = () => {
 
                         {questionAnimationState === 'answers-ready' && currentQuestion.type === QUESTION_TYPES.TEXT && (
                             <div className={`text-question-indicator ${questionAnimationState}`}>
-                                <h2>Spieler geben ihre Antworten ein...</h2>
+                                <h2>{t("inGameHost.status.playersTyping")}</h2>
                                 <div className="text-input-animation">
                                     <div className="typing-dots">
                                         <span></span>
@@ -245,7 +247,7 @@ export const InGameHost = () => {
 
                         {questionAnimationState === 'answers-ready' && currentQuestion.type === QUESTION_TYPES.SEQUENCE && (
                             <div className={`text-question-indicator ${questionAnimationState}`}>
-                                <h2>Spieler sortieren ihre Antworten...</h2>
+                                <h2>{t("inGameHost.status.playersSorting")}</h2>
                                 <div className="text-input-animation">
                                     <div className="typing-dots">
                                         <span></span>

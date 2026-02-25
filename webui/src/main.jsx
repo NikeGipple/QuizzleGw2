@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "@/i18n";
 import {BrandingProvider} from "@/common/contexts/Branding";
 import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import Root from "@/common/layouts/Root";
@@ -18,6 +19,7 @@ import InGameHost from "@/pages/InGameHost";
 import EndingHost from "@/pages/EndingHost";
 import InGameClient from "@/pages/InGameClient";
 import PracticeResults from "@/pages/PracticeResults";
+
 
 const router = createBrowserRouter([
     {
