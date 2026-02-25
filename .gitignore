@@ -140,3 +140,8 @@ data/**
 # Migrator
 migrator/target
 readme.txt
+
+
+# npm lockfile (we use bun)
+package-lock.json
+webui/package-lock.json
