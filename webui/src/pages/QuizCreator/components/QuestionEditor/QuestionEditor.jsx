@@ -47,7 +47,6 @@ export const QuestionEditor = ({question, onChange, deleteQuestion, duplicateQue
     const questionType = question.type || DEFAULT_QUESTION_TYPE;
 
     const getTypeIcon = (type) => getQuestionTypeIcon(type);
-    const getTypeName = (type) => getQuestionTypeName(type);
 
     return (
         <motion.div className="question-editor" initial={{x: -300, opacity: 0}} animate={{x: 0, opacity: 1}}>
