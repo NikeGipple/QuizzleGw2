@@ -258,7 +258,7 @@ export const Home = () => {
                     )}
                 </div>
 
-                <div className={`action-area ${code !== null ? 'disabled' : ''}`}>
+                {/* <div className={`action-area ${code !== null ? 'disabled' : ''}`}>
                     <Button
                         text={t("home.actions.createQuiz")}
                         icon={faSwatchbook}
@@ -280,7 +280,7 @@ export const Home = () => {
                             setTimeout(() => navigate("/load"), 500);
                         }}
                     />
-                </div>
+                </div> */}
             </motion.div>
 
             <ResultsDialog
